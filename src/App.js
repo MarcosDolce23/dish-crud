@@ -1,25 +1,81 @@
-import logo from './logo.svg';
-import './App.css';
+// Import React
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// Import Bootstrap
+import { Nav, Navbar, Container, Row, Col }
+		from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+
+// Import Custom CSS
+import "./App.css";
+
+// Import from react-router-dom
+import { BrowserRouter as Router, Switch,
+	Route, Link } from "react-router-dom";
+
+// Import other React Component
+import CreateDish from
+	"./Components/create-dish.component";
+import EditDish from
+	"./Components/edit-dish.component";
+import DishList from
+	"./Components/dish-list.component";
+
+// App Component
+const App = () => {
+return (
+	<Router>
+	<div className="App">
+		<header className="App-header">
+		<Navbar bg="dark" variant="dark">
+			<Container>
+			<Navbar.Brand>
+				<Link to={"/create-dish"}
+				className="nav-link">
+				React MERN Stack App
+				</Link>
+			</Navbar.Brand>
+
+			<Nav className="justify-content-end">
+				<Nav>
+				<Link to={"/create-dish"}
+					className="nav-link">
+					Create Dish
+				</Link>
+				</Nav>
+
+				<Nav>
+				<Link to={"/dish-list"}
+					className="nav-link">
+					Dish List
+				</Link>
+				</Nav>
+			</Nav>
+			</Container>
+		</Navbar>
+		</header>
+
+		<Container>
+		<Row>
+			<Col md={12}>
+			<div className="wrapper">
+				<Switch>
+				<Route exact path="/"
+					component={CreateDish} />
+				<Route path="/create-dish"
+					component={CreateDish} />
+				<Route path="/edit-dish/:id"
+					component={EditDish} />
+				<Route path="/dish-list"
+					component={DishList} />
+				</Switch>
+			</div>
+			</Col>
+		</Row>
+		</Container>
+	</div>
+	</Router>
+);
+};
 
 export default App;
