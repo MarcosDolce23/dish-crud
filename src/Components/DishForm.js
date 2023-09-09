@@ -18,7 +18,7 @@ const DishForm = (props) => {
 
     const Ingredients = Array(24).fill(null).map( e => {
         return (
-            <Form.Group as={Col} xs="4" md="1" controlId="validationCustom01">
+            <Form.Group as={Col} xs="4" md="1" controlId="validationCustomIngre">
                 <Form.Check
                     label="Vegan"
                 />
@@ -49,7 +49,7 @@ const DishForm = (props) => {
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="3" controlId="validationCustom01">
+                <Form.Group as={Col} md="3" controlId="validationCustom03">
                     <Form.Label>ES Label</Form.Label>
                     <Form.Control
                         required
@@ -58,7 +58,7 @@ const DishForm = (props) => {
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="3" controlId="validationCustom02">
+                <Form.Group as={Col} md="3" controlId="validationCustom04">
                     <Form.Label>EN Label</Form.Label>
                     <Form.Control
                         required
@@ -69,7 +69,7 @@ const DishForm = (props) => {
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="3" controlId="validationCustom01">
+                <Form.Group as={Col} md="3" controlId="validationCustom05">
                     <Form.Label>Cook time</Form.Label>
                     <Form.Control
                         required
@@ -80,7 +80,7 @@ const DishForm = (props) => {
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="3" controlId="validationCustom01">
+                <Form.Group as={Col} md="3" controlId="validationCustom06">
                     <Form.Check
                         label="Vegan"
                     />
@@ -91,7 +91,7 @@ const DishForm = (props) => {
                 {Ingredients}
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom01">
+                <Form.Group as={Col} md="8" controlId="validationCustom07">
                     <Form.Label>ES Recipe</Form.Label>
                     <Form.Control
                         required
@@ -102,7 +102,7 @@ const DishForm = (props) => {
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom01">
+                <Form.Group as={Col} md="8" controlId="validationCustom08">
                     <Form.Label>EN Recipe</Form.Label>
                     <Form.Control
                         required
@@ -113,7 +113,7 @@ const DishForm = (props) => {
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom01">
+                <Form.Group as={Col} md="8" controlId="validationCustom09">
                     <Form.Label>Image</Form.Label>
                     <Form.Control
                         required
@@ -123,7 +123,7 @@ const DishForm = (props) => {
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom01">
+                <Form.Group as={Col} md="8" controlId="validationCustom10">
                     <Form.Label>Header image</Form.Label>
                     <Form.Control
                         required
