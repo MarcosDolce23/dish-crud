@@ -8,7 +8,7 @@ import DishForm from "./DishForm";
 // CreateDish Component
 const CreateDish = () => {
     const [formValues, setFormValues] =
-        useState({ name: '', email: '', rollno: '' })
+        useState({ esName: '', enName: '', esLabel: '', enLabel: '', cookTime: '', vegan: false, esIngredients: [], enIngredients: [], esRecipes: '', enRecipes: '' })
     // onSubmit handler
     const onSubmit = dishObject => {
         axios.post(
