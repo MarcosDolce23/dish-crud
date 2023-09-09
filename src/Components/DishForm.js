@@ -20,7 +20,8 @@ const DishForm = (props) => {
       <Formik {...props} validationSchema={validationSchema}>
         <Form>
           <FormGroup>
-            <Field name="name" type="text" 
+            <label htmlFor="name">Name:</label>
+            <Field id="name" name="name" type="text" 
                 className="form-control" />
             <ErrorMessage
               name="name"
@@ -29,7 +30,8 @@ const DishForm = (props) => {
             />
           </FormGroup>
           <FormGroup>
-            <Field name="email" type="text" 
+          <label htmlFor="email">Email:</label>
+            <Field id="email" name="email" type="text" 
                 className="form-control" />
             <ErrorMessage
               name="email"
@@ -38,7 +40,8 @@ const DishForm = (props) => {
             />
           </FormGroup>
           <FormGroup>
-            <Field name="rollno" type="number" 
+            <label htmlFor="rollno">Rollno:</label>
+            <Field id="rollno" name="rollno" type="number" 
                 className="form-control" />
             <ErrorMessage
               name="rollno"
