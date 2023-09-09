@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import { Table } from "react-bootstrap";
 import DishTableRow from "./DishTableRow";
 
 const DishList = () => {
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [dishes, setDishes] = useState([]);
 
     useEffect(() => {
-        axios
-            .get("http://localhost:4000/dishes/")
-            .then(({ data }) => {
-                setDishes(data);
+        Axios({
+            url: "http://localhost:4000/dishes/",
+        })
+            .then((response) => {
+                setIsLoaded(true);
+                setDishes(response.data);
             })
             .catch((error) => {
                 console.log(error);
+                setIsLoaded(true);
+                setError(error);
             });
     }, []);
 
@@ -23,21 +29,29 @@ const DishList = () => {
         });
     };
 
-    return (
-        <div className="table-wrapper">
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Roll No</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>{DataTable()}</tbody>
-            </Table>
-        </div>
-    );
+    if (error) {
+        return <div>Error: {error.message}</div>
+    } else if (!isLoaded) {
+        return <div>Loading...</div>
+    } else {
+        return (
+                <Table responsive striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>ES Name</th>
+                            <th>EN Name</th>
+                            <th>ES Label</th>
+                            <th>EN Label</th>
+                            <th>Cook time</th>
+                            <th>Vegan</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>{DataTable()}</tbody>
+                </Table>
+        );
+    }
+
 };
 
 export default DishList;

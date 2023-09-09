@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const DishesTableRow = (props) => {
-    const { _id, name, email, rollno } = props.obj;
+    const { _id, esName, enName, esLabel, enLabel, cookTime, vegan } = props.obj;
 
     const deleteDish = () => {
         axios
@@ -21,9 +21,12 @@ const DishesTableRow = (props) => {
 
     return (
         <tr>
-            <td>{name}</td>
-            <td>{email}</td>
-            <td>{rollno}</td>
+            <td>{esName}</td>
+            <td>{enName}</td>
+            <td>{esLabel}</td>
+            <td>{enLabel}</td>
+            <td>{cookTime}</td>
+            <td>{vegan}</td>
             <td>
                 <Link className="edit-link"
                     to={"/edit-dish/" + _id}>
