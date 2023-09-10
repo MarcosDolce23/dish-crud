@@ -15,7 +15,7 @@ const DishForm = (props) => {
         esRecipe: '',
         enRecipe: ''
     });
-    const [ingredients, setIngredients] = useState([""]);
+    const [ingredients, setIngredients] = useState([]);
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
@@ -42,6 +42,13 @@ const DishForm = (props) => {
         setIngredients(ings);
     };
 
+    const selectIngredient = (e) => {
+        debugger
+        let ings = ingredients;
+        ings.splice(e.target.selectedIndex,1,e.target.value);
+        setIngredients(ings);
+    };
+
     const Ingredients = ingredients.map((e, i) => {
         return (
             <Row key={i} className="mb-3">
@@ -52,11 +59,11 @@ const DishForm = (props) => {
                     </Form.Select>
                 </Form.Group>
                 <Form.Group as={Col} xs="4" md="3" controlId="validationCustomIngre">
-                    <Form.Select aria-label="Name">
-                        <option value="1">Manteca</option>
-                        <option value="2">Leche</option>
-                        <option value="3">Crema</option>
-                        <option value="4">Queso</option>
+                    <Form.Select aria-label="Name" onChange={(e) => selectIngredient(e)}>
+                        <option value="Manteca">Manteca</option>
+                        <option value="Leche">Leche</option>
+                        <option value="Crema">Crema</option>
+                        <option value="Queso">Queso</option>
                     </Form.Select>
                 </Form.Group>
                 <Form.Group as={Col} xs="4" md="3">
