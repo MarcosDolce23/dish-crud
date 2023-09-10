@@ -9,7 +9,7 @@ const DishesTableRow = (props) => {
     const deleteDish = () => {
         axios
             .delete(
-                "http://localhost:4000/dishes/delete-dish/" + _id)
+                "http://localhost:4000/dishes/" + _id)
             .then((res) => {
                 if (res.status === 200) {
                     alert("Dish successfully deleted");
