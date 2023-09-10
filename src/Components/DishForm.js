@@ -26,6 +26,7 @@ const DishForm = (props) => {
         }
 
         setValidated(true);
+        props.onSubmit(formData);
     };
 
     const Ingredients = Array(24).fill(null).map((e, i) => {
@@ -122,7 +123,7 @@ const DishForm = (props) => {
                         as="textarea"
                         placeholder="ES Recipe"
                         value={formData.esRecipe}
-                        onChange={e => setFormData({...formData, esRecipe: e.target.value})}
+                        onChange={e => setFormData({...formData, esRecipe: e.target.value.split(/\r\n|\r|\n/g)})}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
@@ -135,7 +136,7 @@ const DishForm = (props) => {
                         as="textarea"
                         placeholder="EN Recipe"
                         value={formData.enRecipe}
-                        onChange={e => setFormData({...formData, enRecipe: e.target.value})}
+                        onChange={e => setFormData({...formData, enRecipe: e.target.value.split(/\r\n|\r|\n/g)})}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>

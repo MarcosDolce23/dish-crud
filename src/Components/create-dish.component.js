@@ -13,16 +13,15 @@ const CreateDish = () => {
 
     // onSubmit handler    
     const addDish = (formData) => {
-        debugger
         Axios.post(
-            'http://localhost:4000/dishs/create-dish', formData )
+            'http://localhost:4000/dishes', formData )
             .then(res => {
                 if (res.status === 200)
                     alert('dish successfully created')
                 else
                     Promise.reject()
             })
-            .catch(err => alert('Something went wrong'))
+            .catch(err => console.log('Error: ' + err))
     }
 
     // Return dish form
