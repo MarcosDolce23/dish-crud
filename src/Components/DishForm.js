@@ -15,7 +15,39 @@ const DishForm = (props) => {
         esRecipe: '',
         enRecipe: ''
     });
-    const [ingredients, setIngredients] = useState([]);
+
+    const ingredients = [
+        {
+            id: 0,
+            esCategory: "Lacteos",
+            enCategory: "Dairy",
+            esName: "Leche",
+            enName: "Milk",
+        },
+        {
+            id: 1,
+            esCategory: "Lacteos",
+            enCategory: "Dairy",
+            esName: "Manteca",
+            enName: "Butter",
+        },
+        {
+            id: 2,
+            esCategory: "Lacteos",
+            enCategory: "Dairy",
+            esName: "Crema",
+            enName: "Cream",
+        },
+        {
+            id: 3,
+            esCategory: "Lacteos",
+            enCategory: "Dairy",
+            esName: "Queso",
+            enName: "Cheese",
+        },
+    ];
+
+    // const [ingredients, setIngredients] = useState([]);
     const [listId, setListId] = useState(1);
     const [validated, setValidated] = useState(false);
 
@@ -51,7 +83,7 @@ const DishForm = (props) => {
             ...formData, ingredients: [
                 ...formData.ingredients, {
                     listId: listId,
-                    id: 0,
+                    id: null,
                     esName: '',
                     enName: ''
                 }
@@ -62,6 +94,7 @@ const DishForm = (props) => {
 
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown 
         key={ingredient.listId}
+        ingredients={ingredients}
         ingredient={ingredient}
         listId={listId - 1}
         updateIngredient={updateIngredient}
