@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Form, Row, Col, Button, CloseButton } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
+import IngredientsDropdown from "./IngredientsDropdown";
 
 const DishForm = (props) => {
     const [formData, setFormData] = useState({
@@ -10,12 +11,12 @@ const DishForm = (props) => {
         enLabel: '',
         cookTime: '',
         vegan: false,
-        esIngredients: [],
-        enIngredients: [],
+        ingredients: [],
         esRecipe: '',
         enRecipe: ''
     });
     const [ingredients, setIngredients] = useState([]);
+    const [listId, setListId] = useState(1);
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
@@ -29,49 +30,43 @@ const DishForm = (props) => {
         props.onSubmit(formData);
     };
 
+    const updateIngredient = (ingredientObj) => {
+        const updatedIngredients = formData.ingredients.map((ingredient) => {
+            if (ingredient.listId === ingredientObj.listId) {
+                return ingredientObj
+            }
+            return ingredient
+        })
+        setFormData({ ...formData, ingredients: updatedIngredients })
+    };
+
+    const removeIngredient = (ingredientObj) => {
+        debugger
+        const updatedIngredients = formData.ingredients.filter((ingredient) => ingredient.listId !== ingredientObj.listId)
+        setFormData({ ...formData, ingredients: updatedIngredients })
+    };
+
     const addIngredient = () => {
-        let ings = ingredients.slice();
-        ings.push("");
-        setIngredients(ings);
+        setFormData({
+            ...formData, ingredients: [
+                ...formData.ingredients, {
+                    listId: listId,
+                    id: 0,
+                    esName: '',
+                    enName: ''
+                }
+            ]
+        })
+        setListId(listId + 1);
     };
 
-    const deleteIngrediente = (i) => {
-        debugger
-        let ings = ingredients.slice();
-        ings.splice(i,1);
-        setIngredients(ings);
-    };
-
-    const selectIngredient = (e) => {
-        debugger
-        let ings = ingredients;
-        ings.splice(e.target.selectedIndex,1,e.target.value);
-        setIngredients(ings);
-    };
-
-    const Ingredients = ingredients.map((e, i) => {
-        return (
-            <Row key={i} className="mb-3">
-                <Form.Group as={Col} xs="4" md="3" controlId="validationCustomIngre">
-                    <Form.Select aria-label="Category">
-                        <option value="1">Lacteos</option>
-                        <option value="2">vegetales</option>
-                    </Form.Select>
-                </Form.Group>
-                <Form.Group as={Col} xs="4" md="3" controlId="validationCustomIngre">
-                    <Form.Select aria-label="Name" onChange={(e) => selectIngredient(e)}>
-                        <option value="Manteca">Manteca</option>
-                        <option value="Leche">Leche</option>
-                        <option value="Crema">Crema</option>
-                        <option value="Queso">Queso</option>
-                    </Form.Select>
-                </Form.Group>
-                <Form.Group as={Col} xs="4" md="3">
-                    <CloseButton onClick={() => deleteIngrediente(i)} />
-                </Form.Group>
-            </Row>
-        )
-    });
+    const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown 
+        key={ingredient.listId}
+        ingredient={ingredient}
+        listId={listId - 1}
+        updateIngredient={updateIngredient}
+        removeIngredient={removeIngredient}
+    />);
 
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -148,7 +143,7 @@ const DishForm = (props) => {
             <Row className="mb-3">
                 <Form.Label>Ingredients</Form.Label>
             </Row>
-            {Ingredients}
+            {renderIngredients}
             <Row className="mb-3">
                 <Col xs="12">
                     <Button variant="success" onClick={addIngredient}>Add Ingredient</Button>
@@ -204,5 +199,18 @@ const DishForm = (props) => {
         </Form>
     );
 };
+
+const ingredientsList = [
+    {
+        id: 1,
+        name: "Lacteos",
+        ingredients: ["Manteca", "Leche", "Crema", "Queso"]
+    },
+    {
+        id: 3,
+        name: "Vegetales",
+        ingredients: ["Lechuga", "Cebolla", "Berenjena"]
+    }
+];
 
 export default DishForm;
