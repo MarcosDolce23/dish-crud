@@ -16,35 +16,62 @@ const DishForm = (props) => {
         enRecipe: ''
     });
 
+    const categories = [
+        {
+            id: 0,
+            esName: "Lacteos",
+            enName: "Dairy"
+        },
+        {
+            id: 1,
+            esName: "Vegetales",
+            enName: "Vegetables"
+        }
+    ];
+
     const ingredients = [
         {
             id: 0,
-            esCategory: "Lacteos",
-            enCategory: "Dairy",
+            categoryId: 0,
             esName: "Leche",
             enName: "Milk",
         },
         {
             id: 1,
-            esCategory: "Lacteos",
-            enCategory: "Dairy",
+            categoryId: 0,
             esName: "Manteca",
             enName: "Butter",
         },
         {
             id: 2,
-            esCategory: "Lacteos",
-            enCategory: "Dairy",
+            categoryId: 0,
             esName: "Crema",
             enName: "Cream",
         },
         {
             id: 3,
-            esCategory: "Lacteos",
-            enCategory: "Dairy",
+            categoryId: 0,
             esName: "Queso",
             enName: "Cheese",
         },
+        {
+            id: 4,
+            categoryId: 1,
+            esName: "Lechuga",
+            enName: "Lettuce",
+        },
+        {
+            id: 5,
+            categoryId: 1,
+            esName: "Cebolla",
+            enName: "Onion",
+        },
+        {
+            id: 6,
+            categoryId: 1,
+            esName: "Berenjena",
+            enName: "Eggplant",
+        }
     ];
 
     // const [ingredients, setIngredients] = useState([]);
@@ -83,7 +110,7 @@ const DishForm = (props) => {
             ...formData, ingredients: [
                 ...formData.ingredients, {
                     listId: listId,
-                    id: null,
+                    id: 0,
                     esName: '',
                     enName: ''
                 }
@@ -95,6 +122,7 @@ const DishForm = (props) => {
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown 
         key={ingredient.listId}
         ingredients={ingredients}
+        categories={categories}
         ingredient={ingredient}
         listId={listId - 1}
         updateIngredient={updateIngredient}
