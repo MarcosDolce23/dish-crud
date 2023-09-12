@@ -13,7 +13,8 @@ const DishForm = (props) => {
         vegan: false,
         ingredients: [],
         esRecipe: '',
-        enRecipe: ''
+        enRecipe: '',
+        base64Img: ''
     });
 
     const categories = [
@@ -119,7 +120,32 @@ const DishForm = (props) => {
         setListId(listId + 1);
     };
 
-    const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown 
+    const handleImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        setFormData({ ...formData, image: file.name, base64Image: base64 });
+    };
+
+    const handleHeaderImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        setFormData({ ...formData, headerImage: file.name, base64Header: base64 });
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file)
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            }
+            fileReader.onerror = (error) => {
+                reject(error);
+            }
+        })
+    };
+
+    const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
         key={ingredient.listId}
         ingredients={ingredients}
         categories={categories}
@@ -236,12 +262,12 @@ const DishForm = (props) => {
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
             </Row>
-            {/* <Row className="mb-3">
+            <Row className="mb-3">
                 <Form.Group as={Col} md="8" controlId="validationCustom09">
                     <Form.Label>Image</Form.Label>
                     <Form.Control
-                        required
                         type="file"
+                        onChange={e => handleImage(e)}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
@@ -250,12 +276,12 @@ const DishForm = (props) => {
                 <Form.Group as={Col} md="8" controlId="validationCustom10">
                     <Form.Label>Header image</Form.Label>
                     <Form.Control
-                        required
                         type="file"
+                        onChange={e => handleHeaderImage(e)}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-            </Row> */}
+            </Row>
             <Button xs="12" type="submit">Submit form</Button>
         </Form>
     );
