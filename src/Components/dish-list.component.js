@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Table } from "react-bootstrap";
+import { Table, Spinner } from "react-bootstrap";
 import DishTableRow from "./DishTableRow";
 
 const DishList = () => {
@@ -32,23 +32,29 @@ const DishList = () => {
     if (error) {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-        return <div>Loading...</div>
+        return (
+            <div id="spinner">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        )
     } else {
         return (
-                <Table responsive striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>ES Name</th>
-                            <th>EN Name</th>
-                            <th>ES Label</th>
-                            <th>EN Label</th>
-                            <th>Cook time</th>
-                            <th>Vegan</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>{DataTable()}</tbody>
-                </Table>
+            <Table responsive striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>ES Name</th>
+                        <th>EN Name</th>
+                        <th>ES Label</th>
+                        <th>EN Label</th>
+                        <th>Cook time</th>
+                        <th>Vegan</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>{DataTable()}</tbody>
+            </Table>
         );
     }
 

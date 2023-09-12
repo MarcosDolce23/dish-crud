@@ -12,7 +12,6 @@ const IngredientsDropdown = ({ ingredients, categories, ingredient, updateIngred
     };
 
     const handleCategorySelect = (e) => {
-        debugger
         const catId = parseInt(e.target.value);
         setFilteredIngredients(ingredients.filter(ingredient => ingredient.categoryId === catId));
     };
@@ -32,7 +31,7 @@ const IngredientsDropdown = ({ ingredients, categories, ingredient, updateIngred
     return (
         <Row className="mb-3">
             <Form.Group as={Col} xs="4" md="3" controlId="validationCustomIngre">
-                <Form.Select aria-label="Category" onChange={(e) => handleCategorySelect(e)}>
+                <Form.Select value={ingredient.categoryId} onChange={(e) => handleCategorySelect(e)}>
                     <option>Select a category</option>
                     {categoryList}
                 </Form.Select>

@@ -7,8 +7,21 @@ import DishForm from "./DishForm";
 
 // CreateDish Component
 const CreateDish = () => {
-    const [formValues, setFormValues] =
-        useState({ esName: '', enName: '', esLabel: '', enLabel: '', cookTime: '', vegan: false, esIngredients: [], enIngredients: [], esRecipes: '', enRecipes: '' })
+    const [formData, setFormData] = useState({
+        esName: '',
+        enName: '',
+        esLabel: '',
+        enLabel: '',
+        cookTime: '',
+        vegan: false,
+        ingredients: [],
+        esRecipe: [],
+        enRecipe: [],
+        image: '',
+        base64Image: '',
+        headerImage: '',
+        base64Header: ''
+    });
 
 
     // onSubmit handler    
@@ -26,7 +39,7 @@ const CreateDish = () => {
 
     // Return dish form
     return (
-        <DishForm initialValues={formValues}
+        <DishForm initialValues={formData}
             onSubmit={addDish}
             enableReinitialize>
             Create dish

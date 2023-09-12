@@ -1,21 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import IngredientsDropdown from "./IngredientsDropdown";
 
-const DishForm = (props) => {
-    const [formData, setFormData] = useState({
-        esName: '',
-        enName: '',
-        esLabel: '',
-        enLabel: '',
-        cookTime: '',
-        vegan: false,
-        ingredients: [],
-        esRecipe: [],
-        enRecipe: [],
-        base64Img: ''
-    });
+const DishForm = ({ initialValues }) => {
+    const [formData, setFormData] = useState({ ...initialValues });
+
+    useEffect(() => {
+        setFormData(initialValues);
+    }, [initialValues])
 
     const categories = [
         {
@@ -87,7 +80,7 @@ const DishForm = (props) => {
         }
 
         setValidated(true);
-        props.onSubmit(formData);
+        // props.onSubmit(formData);
     };
 
     const updateIngredient = (ingredientObj) => {

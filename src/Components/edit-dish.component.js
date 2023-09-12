@@ -2,22 +2,35 @@
 
 // Import Modules
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import DishForm from "./DishForm";
+import { useParams } from "react-router";
 
 // EditDish Component
 const EditDish = (props) => {
-    const [formValues, setFormValues] = useState({
-        name: "",
-        email: "",
-        rollno: "",
+    const [formData, setFormData] = useState({
+        esName: '',
+        enName: '',
+        esLabel: '',
+        enLabel: '',
+        cookTime: '',
+        vegan: false,
+        ingredients: [],
+        esRecipe: [],
+        enRecipe: [],
+        image: '',
+        base64Image: '',
+        headerImage: '',
+        base64Header: ''
     });
+
+    const { id } = useParams();
 
     //onSubmit handler
     const onSubmit = (studentObject) => {
-        axios
+        Axios
             .put(
-                "http://localhost:4000/students/update-dish/" +
+                "http://localhost:4000/dishes/" +
                 props.match.params.id,
                 studentObject
             )
@@ -32,14 +45,42 @@ const EditDish = (props) => {
 
     // Load data from server and reinitialize dish form
     useEffect(() => {
-        axios
+        Axios
             .get(
-                "http://localhost:4000/students/update-dish/"
-                + props.match.params.id
+                "http://localhost:4000/dishes/"
+                + id
             )
             .then((res) => {
-                const { name, email, rollno } = res.data;
-                setFormValues({ name, email, rollno });
+                const {
+                    esName,
+                    enName,
+                    esLabel,
+                    enLabel,
+                    cookTime,
+                    vegan,
+                    ingredients,
+                    esRecipe,
+                    enRecipe,
+                    image,
+                    base64Image,
+                    headerImage,
+                    base64Header
+                } = res.data;
+                setFormData({
+                    esName,
+                    enName,
+                    esLabel,
+                    enLabel,
+                    cookTime,
+                    vegan,
+                    ingredients,
+                    esRecipe,
+                    enRecipe,
+                    image,
+                    base64Image,
+                    headerImage,
+                    base64Header
+                });
             })
             .catch((err) => console.log(err));
     }, []);
@@ -47,7 +88,7 @@ const EditDish = (props) => {
     // Return dish form
     return (
         <DishForm
-            initialValues={formValues}
+            initialValues={formData}
             onSubmit={onSubmit}
             enableReinitialize
         >
