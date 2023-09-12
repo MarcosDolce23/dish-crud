@@ -12,8 +12,8 @@ const DishForm = (props) => {
         cookTime: '',
         vegan: false,
         ingredients: [],
-        esRecipe: '',
-        enRecipe: '',
+        esRecipe: [],
+        enRecipe: [],
         base64Img: ''
     });
 
@@ -101,7 +101,6 @@ const DishForm = (props) => {
     };
 
     const removeIngredient = (ingredientObj) => {
-        debugger
         const updatedIngredients = formData.ingredients.filter((ingredient) => ingredient.listId !== ingredientObj.listId)
         setFormData({ ...formData, ingredients: updatedIngredients })
     };
@@ -243,7 +242,7 @@ const DishForm = (props) => {
                         required
                         as="textarea"
                         placeholder="ES Recipe"
-                        value={formData.esRecipe}
+                        value={formData.esRecipe.join('\n')}
                         onChange={e => setFormData({ ...formData, esRecipe: e.target.value.split(/\r\n|\r|\n/g) })}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -256,7 +255,7 @@ const DishForm = (props) => {
                         required
                         as="textarea"
                         placeholder="EN Recipe"
-                        value={formData.enRecipe}
+                        value={formData.enRecipe.join('\n')}
                         onChange={e => setFormData({ ...formData, enRecipe: e.target.value.split(/\r\n|\r|\n/g) })}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
