@@ -28,7 +28,6 @@ const EditDish = (props) => {
 
     //onSubmit handler
     const onSubmit = (studentObject) => {
-        debugger
         Axios
             .put(
                 "http://localhost:4000/dishes/" +

@@ -215,7 +215,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                 <Form.Group as={Col} md="3" controlId="validationCustom06">
                     <Form.Check
                         label="Vegan"
-                        value={formData.vegan}
+                        checked={formData.vegan}
                         onChange={e => setFormData({ ...formData, vegan: e.target.checked })}
                     />
                 </Form.Group>

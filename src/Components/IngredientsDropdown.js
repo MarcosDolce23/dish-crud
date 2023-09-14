@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Row, Col, CloseButton } from "react-bootstrap";
 
 const IngredientsDropdown = ({ ingredients, categories, ingredient, updateIngredient, removeIngredient }) => {
-    const [filteredIngredients, setFilteredIngredients] = useState([]);
+    const [filteredIngredients, setFilteredIngredients] = useState(ingredients.filter(i => ingredient.categoryId === i.categoryId));
 
     const handleIngredientSelect = (e) => {
         const ingId = parseInt(e.target.value);
