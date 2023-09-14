@@ -103,8 +103,8 @@ const DishForm = ({ initialValues, onSubmit }) => {
             ...formData, ingredients: [
                 ...formData.ingredients, {
                     listId: listId,
-                    id: 0,
-                    categoryId: 99,
+                    id: undefined,
+                    categoryId: undefined,
                     esName: '',
                     enName: ''
                 }

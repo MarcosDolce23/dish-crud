@@ -28,16 +28,17 @@ const EditDish = (props) => {
 
     //onSubmit handler
     const onSubmit = (studentObject) => {
+        debugger
         Axios
             .put(
                 "http://localhost:4000/dishes/" +
-                props.match.params.id,
+                id,
                 studentObject
             )
             .then((res) => {
                 if (res.status === 200) {
                     alert("Student successfully updated");
-                    props.history.push("/dish-list");
+                    // props.history.push("/dish-list");
                 } else Promise.reject();
             })
             .catch((err) => alert("Something went wrong"));
