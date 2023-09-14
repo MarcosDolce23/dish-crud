@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import IngredientsDropdown from "./IngredientsDropdown";
 
-const DishForm = ({ initialValues }) => {
+const DishForm = ({ initialValues, onSubmit }) => {
     const [formData, setFormData] = useState({ ...initialValues });
 
     useEffect(() => {
@@ -80,7 +80,7 @@ const DishForm = ({ initialValues }) => {
         }
 
         setValidated(true);
-        // props.onSubmit(formData);
+        onSubmit(formData);
     };
 
     const updateIngredient = (ingredientObj) => {
@@ -104,6 +104,7 @@ const DishForm = ({ initialValues }) => {
                 ...formData.ingredients, {
                     listId: listId,
                     id: 0,
+                    categoryId: 99,
                     esName: '',
                     enName: ''
                 }

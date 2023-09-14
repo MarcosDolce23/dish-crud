@@ -8,7 +8,7 @@ const IngredientsDropdown = ({ ingredients, categories, ingredient, updateIngred
     const handleIngredientSelect = (e) => {
         const ingId = parseInt(e.target.value);
         const selected = ingredients.filter(e => e.id === ingId);
-        updateIngredient({ ...ingredient, id: ingId, esCategory: selected[0].esCategory, enCategory: selected[0].enCategory, esName: selected[0].esName, enName: selected[0].enName });
+        updateIngredient({ ...ingredient, id: ingId, categoryId: selected[0].categoryId, esName: selected[0].esName, enName: selected[0].enName });
     };
 
     const handleCategorySelect = (e) => {
