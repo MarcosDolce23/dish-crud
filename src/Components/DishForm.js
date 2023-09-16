@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import IngredientsDropdown from "./IngredientsDropdown";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DishForm = ({ initialValues, onSubmit }) => {
     const [formData, setFormData] = useState({ ...initialValues });
@@ -112,18 +113,20 @@ const DishForm = ({ initialValues, onSubmit }) => {
     const getRandomInt = () => {
         return Math.floor(Math.random() * (2000 - 1000) + 1000);
     };
-    
+
 
     const handleImage = async (e) => {
         const file = e.target.files[0];
         const base64 = await convertBase64(file);
-        setFormData({ ...formData, image: file.name, base64Image: base64 });
+        const name = getRandomInt() + '-image' + file.name.substr(-3);
+        setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
     const handleHeaderImage = async (e) => {
         const file = e.target.files[0];
         const base64 = await convertBase64(file);
-        setFormData({ ...formData, headerImage: file.name, base64Header: base64 });
+        const name = getRandomInt() + '-header' + file.name.substr(-3);
+        setFormData({ ...formData, headerImage: name, base64Header: base64 });
     };
 
     const convertBase64 = (file) => {
@@ -255,25 +258,53 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
             </Row>
+            <Form.Label>Image</Form.Label>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom09">
-                    <Form.Label>Image</Form.Label>
+                <Form.Group as={Col} md="4" controlId="validationCustom09">
                     <Form.Control
                         type="file"
                         onChange={e => handleImage(e)}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
+                <Col md="2">
+                    <div className="d-grid gap-2">
+                        <Button
+                            variant="success"
+                        >See Image</Button>
+                    </div>
+                </Col>
+                <Col md="2">
+                    <div className="d-grid gap-2">
+                        <Button
+                            variant="success"
+                        >Download</Button>
+                    </div>
+                </Col>
             </Row>
+            <Form.Label>Header image</Form.Label>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom10">
-                    <Form.Label>Header image</Form.Label>
+                <Form.Group as={Col} md="4" controlId="validationCustom10">
                     <Form.Control
                         type="file"
                         onChange={e => handleHeaderImage(e)}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
+                <Col md="2">
+                    <div className="d-grid gap-2">
+                        <Button
+                            variant="success"
+                        >See Image</Button>
+                    </div>
+                </Col>
+                <Col md="2">
+                    <div className="d-grid gap-2">
+                        <Button
+                            variant="success"
+                        >Download</Button>
+                    </div>
+                </Col>
             </Row>
             <Button xs="12" type="submit">Submit form</Button>
         </Form>
