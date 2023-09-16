@@ -150,11 +150,11 @@ const DishForm = ({ initialValues, onSubmit }) => {
         let n = bstr.length;
         let uint8Array = new Uint8Array(n);
         while (n--) {
-           uint8Array[n] = bstr.charCodeAt(n);
+            uint8Array[n] = bstr.charCodeAt(n);
         }
         let file = new File([uint8Array], fileName, { type: mime });
         return file;
-   }
+    }
 
     const openImage = (src) => {
         let image = new Image();
@@ -293,22 +293,28 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Col md="2">
-                    <div className="d-grid gap-2">
-                        <Button
-                            variant="success"
-                            onClick={() => openImage(formData.base64Image)}
-                        >See Image</Button>
-                    </div>
-                </Col>
-                <Col md="2">
-                    <div className="d-grid gap-2">
-                        <Button
-                            variant="success"
-                            onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
-                        >Download</Button>
-                    </div>
-                </Col>
+                {formData.image ? (
+                    <>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => openImage(formData.base64Image)}
+                                >See Image</Button>
+                            </div>
+                        </Col>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
+                                >Download</Button>
+                            </div>
+                        </Col>
+                    </>
+                ) : (
+                    null
+                )}
             </Row>
             <Form.Label>Header image</Form.Label>
             <Row className="mb-3">
@@ -319,22 +325,28 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Col md="2">
-                    <div className="d-grid gap-2">
-                        <Button
-                            variant="success"
-                            onClick={() => openImage(formData.base64Header)}
-                        >See Image</Button>
-                    </div>
-                </Col>
-                <Col md="2">
-                    <div className="d-grid gap-2">
-                        <Button
-                            variant="success"
-                            onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
-                        >Download</Button>
-                    </div>
-                </Col>
+                {formData.headerImage ? (
+                    <>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => openImage(formData.base64Header)}
+                                >See Image</Button>
+                            </div>
+                        </Col>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
+                                >Download</Button>
+                            </div>
+                        </Col>
+                    </>
+                ) : (
+                    null
+                )}
             </Row>
             <Button xs="12" type="submit">Submit form</Button>
         </Form>
