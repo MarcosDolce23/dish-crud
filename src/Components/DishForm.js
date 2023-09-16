@@ -115,9 +115,9 @@ const DishForm = ({ initialValues, onSubmit }) => {
         return Math.floor(Math.random() * (2000 - 1000) + 1000);
     };
 
-
     const handleImage = async (e) => {
         const file = e.target.files[0];
+        if (!file) return;
         const base64 = await convertBase64(file);
         const name = getRandomInt() + '-image' + file.name.substr(-3);
         setFormData({ ...formData, image: name, base64Image: base64 });
@@ -131,6 +131,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
     };
 
     const convertBase64 = (file) => {
+        if (!file) return;
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(file)
