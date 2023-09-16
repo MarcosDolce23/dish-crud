@@ -5,6 +5,7 @@ import IngredientsDropdown from "./IngredientsDropdown";
 
 const DishForm = ({ initialValues, onSubmit }) => {
     const [formData, setFormData] = useState({ ...initialValues });
+    const [validated, setValidated] = useState(false);
 
     useEffect(() => {
         setFormData(initialValues);
@@ -68,10 +69,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
         }
     ];
 
-    // const [ingredients, setIngredients] = useState([]);
-    const [listId, setListId] = useState(1);
-    const [validated, setValidated] = useState(false);
-
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
@@ -102,7 +99,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
         setFormData({
             ...formData, ingredients: [
                 ...formData.ingredients, {
-                    listId: listId,
+                    listId: getRandomInt(),
                     id: undefined,
                     categoryId: undefined,
                     esName: '',
@@ -110,8 +107,12 @@ const DishForm = ({ initialValues, onSubmit }) => {
                 }
             ]
         })
-        setListId(listId + 1);
     };
+
+    const getRandomInt = () => {
+        return Math.floor(Math.random() * (2000 - 1000) + 1000);
+    };
+    
 
     const handleImage = async (e) => {
         const file = e.target.files[0];
@@ -143,7 +144,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
         ingredients={ingredients}
         categories={categories}
         ingredient={ingredient}
-        listId={listId - 1}
         updateIngredient={updateIngredient}
         removeIngredient={removeIngredient}
     />);
