@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import { saveAs } from "file-saver";
 import IngredientsDropdown from "./IngredientsDropdown";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -142,12 +143,30 @@ const DishForm = ({ initialValues, onSubmit }) => {
         })
     };
 
+    const convertBase64ToFile = (base64String, fileName) => {
+        let arr = base64String.split(',');
+        let mime = arr[0].match(/:(.*?);/)[1];
+        let bstr = atob(arr[1]);
+        let n = bstr.length;
+        let uint8Array = new Uint8Array(n);
+        while (n--) {
+           uint8Array[n] = bstr.charCodeAt(n);
+        }
+        let file = new File([uint8Array], fileName, { type: mime });
+        return file;
+   }
+
     const openImage = (src) => {
         let image = new Image();
         image.src = src;
 
         let w = window.open("");
         w.document.write(image.outerHTML);
+    };
+
+    const downloadImage = (src, name) => {
+        let file = convertBase64ToFile(src, name);
+        saveAs(file, name);
     }
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
         key={ingredient.listId}
@@ -286,6 +305,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     <div className="d-grid gap-2">
                         <Button
                             variant="success"
+                            onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
                         >Download</Button>
                     </div>
                 </Col>
@@ -311,6 +331,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     <div className="d-grid gap-2">
                         <Button
                             variant="success"
+                            onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
                         >Download</Button>
                     </div>
                 </Col>
