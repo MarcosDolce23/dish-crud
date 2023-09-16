@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { saveAs } from "file-saver";
 import IngredientsDropdown from "./IngredientsDropdown";
+import Utilities from "./Common/Utilities";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DishForm = ({ initialValues, onSubmit }) => {
@@ -101,7 +102,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
         setFormData({
             ...formData, ingredients: [
                 ...formData.ingredients, {
-                    listId: getRandomInt(),
+                    listId: Utilities.getRandomInt(),
                     id: undefined,
                     categoryId: undefined,
                     esName: '',
@@ -111,51 +112,20 @@ const DishForm = ({ initialValues, onSubmit }) => {
         })
     };
 
-    const getRandomInt = () => {
-        return Math.floor(Math.random() * (2000 - 1000) + 1000);
-    };
-
     const handleImage = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        const base64 = await convertBase64(file);
-        const name = getRandomInt() + '-image' + file.name.substr(-3);
+        const base64 = await Utilities.convertBase64(file);
+        const name = Utilities.getRandomInt() + '-image' + file.name.substr(-3);
         setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
     const handleHeaderImage = async (e) => {
         const file = e.target.files[0];
-        const base64 = await convertBase64(file);
-        const name = getRandomInt() + '-header' + file.name.substr(-3);
+        const base64 = await Utilities.convertBase64(file);
+        const name = Utilities.getRandomInt() + '-header' + file.name.substr(-3);
         setFormData({ ...formData, headerImage: name, base64Header: base64 });
     };
-
-    const convertBase64 = (file) => {
-        if (!file) return;
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file)
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            }
-            fileReader.onerror = (error) => {
-                reject(error);
-            }
-        })
-    };
-
-    const convertBase64ToFile = (base64String, fileName) => {
-        let arr = base64String.split(',');
-        let mime = arr[0].match(/:(.*?);/)[1];
-        let bstr = atob(arr[1]);
-        let n = bstr.length;
-        let uint8Array = new Uint8Array(n);
-        while (n--) {
-            uint8Array[n] = bstr.charCodeAt(n);
-        }
-        let file = new File([uint8Array], fileName, { type: mime });
-        return file;
-    }
 
     const openImage = (src) => {
         let image = new Image();
@@ -166,7 +136,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
     };
 
     const downloadImage = (src, name) => {
-        let file = convertBase64ToFile(src, name);
+        let file = Utilities.convertBase64ToFile(src, name);
         saveAs(file, name);
     }
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
