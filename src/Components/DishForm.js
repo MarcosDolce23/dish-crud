@@ -142,6 +142,13 @@ const DishForm = ({ initialValues, onSubmit }) => {
         })
     };
 
+    const openImage = (src) => {
+        let image = new Image();
+        image.src = src;
+
+        let w = window.open("");
+        w.document.write(image.outerHTML);
+    }
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
         key={ingredient.listId}
         ingredients={ingredients}
@@ -271,6 +278,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     <div className="d-grid gap-2">
                         <Button
                             variant="success"
+                            onClick={() => openImage(formData.base64Image)}
                         >See Image</Button>
                     </div>
                 </Col>
@@ -295,6 +303,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     <div className="d-grid gap-2">
                         <Button
                             variant="success"
+                            onClick={() => openImage(formData.base64Header)}
                         >See Image</Button>
                     </div>
                 </Col>
@@ -310,18 +319,5 @@ const DishForm = ({ initialValues, onSubmit }) => {
         </Form>
     );
 };
-
-const ingredientsList = [
-    {
-        id: 1,
-        name: "Lacteos",
-        ingredients: ["Manteca", "Leche", "Crema", "Queso"]
-    },
-    {
-        id: 3,
-        name: "Vegetales",
-        ingredients: ["Lechuga", "Cebolla", "Berenjena"]
-    }
-];
 
 export default DishForm;
