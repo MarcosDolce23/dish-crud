@@ -22,6 +22,12 @@ import EditDish from
   "./Components/edit-dish.component";
 import DishList from
   "./Components/dish-list.component";
+import CreateIngredient from
+  "./Components/create-ingredient.component";
+import IngredientList from 
+  "./Components/ingredient-list.component";
+import EditIngredient from 
+  "./Components/edit-ingredient.component";
 
 // App Component
 const App = () => {
@@ -52,7 +58,23 @@ const App = () => {
                     Dish List
                   </Link>
                 </Nav>
+
+                <Nav>
+                  <Link to={"/create-ingredient"}
+                    className="nav-link">
+                    Create Ingredient
+                  </Link>
+                </Nav>
+                
+                <Nav>
+                  <Link to={"/ingredient-list"}
+                    className="nav-link">
+                    Ingredient List
+                  </Link>
+                </Nav>
+
               </Nav>
+
             </Container>
           </Navbar>
         </header>
@@ -70,13 +92,19 @@ const App = () => {
                     element={<EditDish />} />
                   <Route path="/dish-list"
                     element={<DishList />} />
+                  <Route path="/create-ingredient"
+                    element={<CreateIngredient />} />
+                  <Route path="/ingredient-list"
+                    element={<IngredientList />} />
+                   <Route path="/edit-ingredient/:id"
+                    element={<EditIngredient />} /> 
                 </Routes>
               </div>
             </Col>
           </Row>
         </Container>
       </div>
-    </Router>
+    </Router >
   );
 };
 
