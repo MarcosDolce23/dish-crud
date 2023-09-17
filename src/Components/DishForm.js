@@ -1,7 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import { saveAs } from "file-saver";
 import IngredientsDropdown from "./IngredientsDropdown";
+import Utilities from "./Common/Utilities";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DishForm = ({ initialValues, onSubmit }) => {
     const [formData, setFormData] = useState({ ...initialValues });
@@ -99,7 +102,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
         setFormData({
             ...formData, ingredients: [
                 ...formData.ingredients, {
-                    listId: getRandomInt(),
+                    listId: Utilities.getRandomInt(),
                     id: undefined,
                     categoryId: undefined,
                     esName: '',
@@ -109,36 +112,33 @@ const DishForm = ({ initialValues, onSubmit }) => {
         })
     };
 
-    const getRandomInt = () => {
-        return Math.floor(Math.random() * (2000 - 1000) + 1000);
-    };
-    
-
     const handleImage = async (e) => {
         const file = e.target.files[0];
-        const base64 = await convertBase64(file);
-        setFormData({ ...formData, image: file.name, base64Image: base64 });
+        if (!file) return;
+        const base64 = await Utilities.convertBase64(file);
+        const name = Utilities.getRandomInt() + '-image' + file.name.substr(-3);
+        setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
     const handleHeaderImage = async (e) => {
         const file = e.target.files[0];
-        const base64 = await convertBase64(file);
-        setFormData({ ...formData, headerImage: file.name, base64Header: base64 });
+        const base64 = await Utilities.convertBase64(file);
+        const name = Utilities.getRandomInt() + '-header' + file.name.substr(-3);
+        setFormData({ ...formData, headerImage: name, base64Header: base64 });
     };
 
-    const convertBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file)
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            }
-            fileReader.onerror = (error) => {
-                reject(error);
-            }
-        })
+    const openImage = (src) => {
+        let image = new Image();
+        image.src = src;
+
+        let w = window.open("");
+        w.document.write(image.outerHTML);
     };
 
+    const downloadImage = (src, name) => {
+        let file = Utilities.convertBase64ToFile(src, name);
+        saveAs(file, name);
+    }
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
         key={ingredient.listId}
         ingredients={ingredients}
@@ -255,42 +255,73 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
             </Row>
+            <Form.Label>Image</Form.Label>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom09">
-                    <Form.Label>Image</Form.Label>
+                <Form.Group as={Col} md="4" controlId="validationCustom09">
                     <Form.Control
                         type="file"
                         onChange={e => handleImage(e)}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
+                {formData.image ? (
+                    <>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => openImage(formData.base64Image)}
+                                >See Image</Button>
+                            </div>
+                        </Col>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
+                                >Download</Button>
+                            </div>
+                        </Col>
+                    </>
+                ) : (
+                    null
+                )}
             </Row>
+            <Form.Label>Header image</Form.Label>
             <Row className="mb-3">
-                <Form.Group as={Col} md="8" controlId="validationCustom10">
-                    <Form.Label>Header image</Form.Label>
+                <Form.Group as={Col} md="4" controlId="validationCustom10">
                     <Form.Control
                         type="file"
                         onChange={e => handleHeaderImage(e)}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
+                {formData.headerImage ? (
+                    <>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => openImage(formData.base64Header)}
+                                >See Image</Button>
+                            </div>
+                        </Col>
+                        <Col md="2">
+                            <div className="d-grid gap-2">
+                                <Button
+                                    variant="success"
+                                    onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
+                                >Download</Button>
+                            </div>
+                        </Col>
+                    </>
+                ) : (
+                    null
+                )}
             </Row>
             <Button xs="12" type="submit">Submit form</Button>
         </Form>
     );
 };
-
-const ingredientsList = [
-    {
-        id: 1,
-        name: "Lacteos",
-        ingredients: ["Manteca", "Leche", "Crema", "Queso"]
-    },
-    {
-        id: 3,
-        name: "Vegetales",
-        ingredients: ["Lechuga", "Cebolla", "Berenjena"]
-    }
-];
 
 export default DishForm;
