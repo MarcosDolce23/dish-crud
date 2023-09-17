@@ -7,7 +7,7 @@ import DishForm from "./DishForm";
 import { useParams } from "react-router";
 
 // EditDish Component
-const EditDish = (props) => {
+const EditDish = () => {
     const [formData, setFormData] = useState({
         esName: '',
         enName: '',
@@ -83,14 +83,13 @@ const EditDish = (props) => {
                 });
             })
             .catch((err) => console.log(err));
-    }, []);
+    }, [id]);
 
     // Return dish form
     return (
         <DishForm
             initialValues={formData}
             onSubmit={onSubmit}
-            enableReinitialize
         >
             Update Student
         </DishForm>

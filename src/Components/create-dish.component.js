@@ -1,13 +1,10 @@
 // CreateDish Component for add new dish
-
-// Import Modules
-import React, { useState } from "react";
 import Axios from 'axios';
 import DishForm from "./DishForm";
 
 // CreateDish Component
 const CreateDish = () => {
-    const [formData, setFormData] = useState({
+    const formData = {
         esName: '',
         enName: '',
         esLabel: '',
@@ -21,8 +18,7 @@ const CreateDish = () => {
         base64Image: '',
         headerImage: '',
         base64Header: ''
-    });
-
+    };
 
     // onSubmit handler    
     const addDish = (formData) => {
@@ -41,7 +37,7 @@ const CreateDish = () => {
     return (
         <DishForm initialValues={formData}
             onSubmit={addDish}
-            enableReinitialize>
+            >
             Create dish
         </DishForm>
     )

@@ -11,6 +11,10 @@ const DishForm = ({ initialValues, onSubmit }) => {
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
+        initialValues.ingredients.map(ingredient => {
+            return ingredient.listId = Utilities.getRandomInt();
+        });
+
         setFormData(initialValues);
     }, [initialValues])
 
