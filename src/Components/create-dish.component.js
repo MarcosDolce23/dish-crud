@@ -22,8 +22,13 @@ const CreateDish = () => {
 
     // onSubmit handler    
     const addDish = (formData) => {
+        let payload =  JSON.parse(JSON.stringify(formData));
+        payload.ingredients.map(ingredient => {
+            return delete ingredient.listId;
+        });
+
         Axios.post(
-            'http://localhost:4000/dishes', formData )
+            'http://localhost:4000/dishes', payload )
             .then(res => {
                 if (res.status === 200)
                     alert('dish successfully created')
