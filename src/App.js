@@ -30,6 +30,8 @@ import EditIngredient from
   "./Components/edit-ingredient.component";
 import CreateCategory from
   "./Components/create-category.component";
+import CategoryList from
+  "./Components/category-list.component";
 
 // App Component
 const App = () => {
@@ -83,6 +85,13 @@ const App = () => {
                   </Link>
                 </Nav>
 
+                <Nav>
+                  <Link to={"/category-list"}
+                    className="nav-link">
+                    Category List
+                  </Link>
+                </Nav>
+
               </Nav>
 
             </Container>
@@ -110,10 +119,12 @@ const App = () => {
                     element={<EditIngredient />} />
                   <Route path="/create-category"
                     element={<CreateCategory />} />
+                  <Route path="/category-list"
+                    element={<CategoryList />} />
                 </Routes>
               </div>
             </Col>
-            </Row>
+          </Row>
         </Container>
       </div>
     </Router >
