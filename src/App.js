@@ -26,6 +26,8 @@ import CreateIngredient from
   "./Components/create-ingredient.component";
 import IngredientList from 
   "./Components/ingredient-list.component";
+import EditIngredient from 
+  "./Components/edit-ingredient.component";
 
 // App Component
 const App = () => {
@@ -94,6 +96,8 @@ const App = () => {
                     element={<CreateIngredient />} />
                   <Route path="/ingredient-list"
                     element={<IngredientList />} />
+                   <Route path="/edit-ingredient/:id"
+                    element={<EditIngredient />} /> 
                 </Routes>
               </div>
             </Col>
