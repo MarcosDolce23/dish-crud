@@ -27,12 +27,17 @@ const EditDish = () => {
     const { id } = useParams();
 
     //onSubmit handler
-    const onSubmit = (studentObject) => {
+    const onSubmit = (formData) => {
+        let payload =  JSON.parse(JSON.stringify(formData));
+        payload.ingredients.map(ingredient => {
+            return delete ingredient.listId;
+        });
+
         Axios
             .put(
                 "http://localhost:4000/dishes/" +
                 id,
-                studentObject
+                payload
             )
             .then((res) => {
                 if (res.status === 200) {
