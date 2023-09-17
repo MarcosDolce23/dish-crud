@@ -6,7 +6,7 @@ const CategoryIngredientsDropdown = ({ ingredients, ingredient, updateIngredient
     const handleIngredientSelect = (e) => {
         const ingId = e.target.value;
         const selected = ingredients.filter(e => e._id === ingId);
-        updateIngredient({ ...ingredient, id: ingId, esName: selected[0].esName, enName: selected[0].enName });
+        updateIngredient({ ...ingredient, _id: ingId, esName: selected[0].esName, enName: selected[0].enName });
     };
 
     const ingredientList = ingredients.map(ingredient => {

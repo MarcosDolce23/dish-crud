@@ -66,7 +66,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
             ...formData, ingredients: [
                 ...formData.ingredients, {
                     listId: Utilities.getRandomInt(),
-                    id: undefined,
+                    _id: undefined,
                     categoryId: undefined,
                     esName: '',
                     enName: ''

@@ -32,6 +32,8 @@ import CreateCategory from
   "./Components/create-category.component";
 import CategoryList from
   "./Components/category-list.component";
+import EditCategory from 
+  "./Components/edit-category.component";
 
 // App Component
 const App = () => {
@@ -121,6 +123,8 @@ const App = () => {
                     element={<CreateCategory />} />
                   <Route path="/category-list"
                     element={<CategoryList />} />
+                  <Route path="/edit-category/:id"
+                    element={<EditCategory />} />
                 </Routes>
               </div>
             </Col>
