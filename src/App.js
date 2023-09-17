@@ -22,6 +22,8 @@ import EditDish from
   "./Components/edit-dish.component";
 import DishList from
   "./Components/dish-list.component";
+import CreateIngredient from
+  "./Components/create-ingredient.component";
 
 // App Component
 const App = () => {
@@ -52,7 +54,16 @@ const App = () => {
                     Dish List
                   </Link>
                 </Nav>
+
+                <Nav>
+                  <Link to={"/create-ingredient"}
+                    className="nav-link">
+                    Create Ingredient
+                  </Link>
+                </Nav>
+
               </Nav>
+
             </Container>
           </Navbar>
         </header>
@@ -70,13 +81,15 @@ const App = () => {
                     element={<EditDish />} />
                   <Route path="/dish-list"
                     element={<DishList />} />
+                  <Route path="/create-ingredient"
+                    element={<CreateIngredient />} />
                 </Routes>
               </div>
             </Col>
           </Row>
         </Container>
       </div>
-    </Router>
+    </Router >
   );
 };
 
