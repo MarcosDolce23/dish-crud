@@ -2,7 +2,6 @@
 import Axios from 'axios';
 import DishForm from "./DishForm";
 
-// CreateDish Component
 const CreateDish = () => {
     const formData = {
         esName: '',
@@ -31,14 +30,13 @@ const CreateDish = () => {
             'http://localhost:4000/dishes', payload )
             .then(res => {
                 if (res.status === 200)
-                    alert('dish successfully created')
+                    alert('Dish successfully created')
                 else
                     Promise.reject()
             })
             .catch(err => console.log('Error: ' + err))
     }
 
-    // Return dish form
     return (
         <DishForm initialValues={formData}
             onSubmit={addDish}
@@ -48,5 +46,4 @@ const CreateDish = () => {
     )
 }
 
-// Export CreateDish Component
-export default CreateDish
+export default CreateDish;
