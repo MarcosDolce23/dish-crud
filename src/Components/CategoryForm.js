@@ -3,14 +3,14 @@ import Axios from "axios";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Spinner } from "react-bootstrap";
 import { saveAs } from "file-saver";
-import IngredientsDropdown from "./IngredientsDropdown";
+import CategoryIngredientsDropdown from "./CategoryIngredientsDropdown";
 import Utilities from "./Common/Utilities";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const DishForm = ({ initialValues, onSubmit }) => {
+const CategoryForm = ({ initialValues, onSubmit }) => {
     const [formData, setFormData] = useState({ ...initialValues });
+    const [ingredients, setIngredients] = useState([]);
     const [validated, setValidated] = useState(false);
-    const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -20,11 +20,11 @@ const DishForm = ({ initialValues, onSubmit }) => {
         });
 
         Axios({
-            url: "http://localhost:4000/categories/",
+            url: "http://localhost:4000/ingredients/",
         })
             .then((response) => {
                 setIsLoaded(true);
-                setCategories(response.data);
+                setIngredients(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -66,7 +66,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
             ...formData, ingredients: [
                 ...formData.ingredients, {
                     listId: Utilities.getRandomInt(),
-                    id: undefined,
+                    _id: undefined,
                     categoryId: undefined,
                     esName: '',
                     enName: ''
@@ -83,13 +83,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
         setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
-    const handleHeaderImage = async (e) => {
-        const file = e.target.files[0];
-        const base64 = await Utilities.convertBase64(file);
-        const name = Utilities.getRandomInt() + '-header' + file.name.substr(-3);
-        setFormData({ ...formData, headerImage: name, base64Header: base64 });
-    };
-
     const openImage = (src) => {
         let image = new Image();
         image.src = src;
@@ -102,9 +95,9 @@ const DishForm = ({ initialValues, onSubmit }) => {
         let file = Utilities.convertBase64ToFile(src, name);
         saveAs(file, name);
     }
-    const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
+    const renderIngredients = formData.ingredients.map(ingredient => <CategoryIngredientsDropdown
         key={ingredient.listId}
-        categories={categories}
+        ingredients={ingredients}
         ingredient={ingredient}
         updateIngredient={updateIngredient}
         removeIngredient={removeIngredient}
@@ -148,52 +141,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
-                    <Form.Group as={Col} md="3" controlId="validationCustom03">
-                        <Form.Label>ES Label</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="ES Label"
-                            value={formData.esLabel}
-                            onChange={e => setFormData({ ...formData, esLabel: e.target.value })}
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="validationCustom04">
-                        <Form.Label>EN Label</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="EN Label"
-                            value={formData.enLabel}
-                            onChange={e => setFormData({ ...formData, enLabel: e.target.value })}
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="3" controlId="validationCustom05">
-                        <Form.Label>Cook time</Form.Label>
-                        <Form.Control
-                            required
-                            type="number"
-                            placeholder="Cook time"
-                            value={formData.cookTime}
-                            onChange={e => setFormData({ ...formData, cookTime: e.target.value })}
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="3" controlId="validationCustom06">
-                        <Form.Check
-                            label="Vegan"
-                            checked={formData.vegan}
-                            onChange={e => setFormData({ ...formData, vegan: e.target.checked })}
-                        />
-                    </Form.Group>
-                </Row>
-                <Row className="mb-3">
                     <Form.Label>Ingredients</Form.Label>
                 </Row>
                 {renderIngredients}
@@ -201,32 +148,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     <Col xs="12">
                         <Button variant="success" onClick={addIngredient}>Add Ingredient</Button>
                     </Col>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="8" controlId="validationCustom07">
-                        <Form.Label>ES Recipe</Form.Label>
-                        <Form.Control
-                            required
-                            as="textarea"
-                            placeholder="ES Recipe"
-                            value={formData.esRecipe.join('\n')}
-                            onChange={e => setFormData({ ...formData, esRecipe: e.target.value.split(/\r\n|\r|\n/g) })}
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="8" controlId="validationCustom08">
-                        <Form.Label>EN Recipe</Form.Label>
-                        <Form.Control
-                            required
-                            as="textarea"
-                            placeholder="EN Recipe"
-                            value={formData.enRecipe.join('\n')}
-                            onChange={e => setFormData({ ...formData, enRecipe: e.target.value.split(/\r\n|\r|\n/g) })}
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
                 </Row>
                 <Form.Label>Image</Form.Label>
                 <Row className="mb-3">
@@ -260,42 +181,10 @@ const DishForm = ({ initialValues, onSubmit }) => {
                         null
                     )}
                 </Row>
-                <Form.Label>Header image</Form.Label>
-                <Row className="mb-3">
-                    <Form.Group as={Col} md="4" controlId="validationCustom10">
-                        <Form.Control
-                            type="file"
-                            onChange={e => handleHeaderImage(e)}
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    {formData.headerImage ? (
-                        <>
-                            <Col md="2">
-                                <div className="d-grid gap-2">
-                                    <Button
-                                        variant="success"
-                                        onClick={() => openImage(formData.base64Header)}
-                                    >See Image</Button>
-                                </div>
-                            </Col>
-                            <Col md="2">
-                                <div className="d-grid gap-2">
-                                    <Button
-                                        variant="success"
-                                        onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
-                                    >Download</Button>
-                                </div>
-                            </Col>
-                        </>
-                    ) : (
-                        null
-                    )}
-                </Row>
                 <Button xs="12" type="submit">Submit form</Button>
             </Form>
         );
     }
 };
 
-export default DishForm;
+export default CategoryForm;

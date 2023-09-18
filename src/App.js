@@ -24,10 +24,16 @@ import DishList from
   "./Components/dish-list.component";
 import CreateIngredient from
   "./Components/create-ingredient.component";
-import IngredientList from 
+import IngredientList from
   "./Components/ingredient-list.component";
-import EditIngredient from 
+import EditIngredient from
   "./Components/edit-ingredient.component";
+import CreateCategory from
+  "./Components/create-category.component";
+import CategoryList from
+  "./Components/category-list.component";
+import EditCategory from 
+  "./Components/edit-category.component";
 
 // App Component
 const App = () => {
@@ -45,6 +51,7 @@ const App = () => {
               </Navbar.Brand>
 
               <Nav className="justify-content-end">
+
                 <Nav>
                   <Link to={"/create-dish"}
                     className="nav-link">
@@ -65,11 +72,25 @@ const App = () => {
                     Create Ingredient
                   </Link>
                 </Nav>
-                
+
                 <Nav>
                   <Link to={"/ingredient-list"}
                     className="nav-link">
                     Ingredient List
+                  </Link>
+                </Nav>
+
+                <Nav>
+                  <Link to={"/create-category"}
+                    className="nav-link">
+                    Create Category
+                  </Link>
+                </Nav>
+
+                <Nav>
+                  <Link to={"/category-list"}
+                    className="nav-link">
+                    Category List
                   </Link>
                 </Nav>
 
@@ -96,8 +117,14 @@ const App = () => {
                     element={<CreateIngredient />} />
                   <Route path="/ingredient-list"
                     element={<IngredientList />} />
-                   <Route path="/edit-ingredient/:id"
-                    element={<EditIngredient />} /> 
+                  <Route path="/edit-ingredient/:id"
+                    element={<EditIngredient />} />
+                  <Route path="/create-category"
+                    element={<CreateCategory />} />
+                  <Route path="/category-list"
+                    element={<CategoryList />} />
+                  <Route path="/edit-category/:id"
+                    element={<EditCategory />} />
                 </Routes>
               </div>
             </Col>
