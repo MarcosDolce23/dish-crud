@@ -104,7 +104,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
     }
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
         key={ingredient.listId}
-        ingredients={categories.ingredients}
         categories={categories}
         ingredient={ingredient}
         updateIngredient={updateIngredient}
