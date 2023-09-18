@@ -2,7 +2,6 @@ import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Spinner } from "react-bootstrap";
-import { saveAs } from "file-saver";
 import CategoryIngredientsDropdown from "./CategoryIngredientsDropdown";
 import Utilities from "./Common/Utilities";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -83,19 +82,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
         setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
-    const openImage = (src) => {
-        let image = new Image();
-        image.src = src;
-
-        let w = window.open("");
-        w.document.write(image.outerHTML);
-    };
-
-    const downloadImage = (src, name) => {
-        let file = Utilities.convertBase64ToFile(src, name);
-        saveAs(file, name);
-    }
-    const renderIngredients = formData.ingredients.map(ingredient => <CategoryIngredientsDropdown
+   const renderIngredients = formData.ingredients.map(ingredient => <CategoryIngredientsDropdown
         key={ingredient.listId}
         ingredients={ingredients}
         ingredient={ingredient}
@@ -164,7 +151,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => openImage(formData.base64Image)}
+                                        onClick={() => Utilities.openImage(formData.base64Image)}
                                     >See Image</Button>
                                 </div>
                             </Col>
@@ -172,7 +159,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
+                                        onClick={() => Utilities.downloadImage(formData.base64Header, formData.headerImage)}
                                     >Download</Button>
                                 </div>
                             </Col>
