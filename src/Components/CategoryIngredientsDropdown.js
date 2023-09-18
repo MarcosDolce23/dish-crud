@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Form, Row, Col, CloseButton } from "react-bootstrap";
 
 const CategoryIngredientsDropdown = ({ ingredients, ingredient, updateIngredient, removeIngredient }) => {
