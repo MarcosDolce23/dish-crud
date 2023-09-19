@@ -138,7 +138,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                 </Row>
                 <Form.Label>Image</Form.Label>
                 <Row className="mb-3">
-                    <Form.Group as={Col} md="4" controlId="validationCustom09">
+                    <Form.Group as={Col} md="4" controlId="validationCustom03">
                         <Form.Control
                             type="file"
                             onChange={e => handleImage(e)}
