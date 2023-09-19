@@ -42,7 +42,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
         }
 
         setValidated(true);
-        onSubmit(formData);
+        // onSubmit(formData);
     };
 
     const updateIngredient = (ingredientObj) => {
