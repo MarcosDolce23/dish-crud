@@ -40,11 +40,9 @@ const DishForm = ({ initialValues, onSubmit }) => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        } else {
+            setValidated(true);
+        } else
             onSubmit(formData);
-        }
-
-        setValidated(true);
     };
 
     const updateIngredient = (ingredientObj) => {

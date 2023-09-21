@@ -13,14 +13,14 @@ const IngredientForm = ({ initialValues, onSubmit }) => {
     }, [initialValues])
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
-
-        setValidated(true);
-        onSubmit(formData);
+            setValidated(true);
+        } else
+            onSubmit(formData);
     };
 
     return (

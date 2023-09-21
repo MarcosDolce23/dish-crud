@@ -35,14 +35,14 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
     }, [initialValues])
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
-
-        setValidated(true);
-        onSubmit(formData);
+            setValidated(true);
+        } else
+            onSubmit(formData);
     };
 
     const updateIngredient = (ingredientObj) => {
@@ -82,7 +82,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
         setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
-   const renderIngredients = formData.ingredients.map(ingredient => <CategoryIngredientsDropdown
+    const renderIngredients = formData.ingredients.map(ingredient => <CategoryIngredientsDropdown
         key={ingredient.listId}
         ingredients={ingredients}
         ingredient={ingredient}
