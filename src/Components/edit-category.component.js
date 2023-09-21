@@ -3,8 +3,14 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import CategoryForm from "./CategoryForm";
 import { useParams } from "react-router";
+import CommonModal from './Common/CommonModal';
 
 const EditCategory = () => {
+    const [modalShow, setModalShow] = useState(false);
+    const [title, setTitle] = useState('');
+    const [subTitle, setSubTitle] = useState('');
+    const [text, setText] = useState('');
+
     const [formData, setFormData] = useState({
         esName: '',
         enName: '',
@@ -28,12 +34,21 @@ const EditCategory = () => {
                 id,
                 payload
             )
-            .then((res) => {
+            .then(res => {
                 if (res.status === 200) {
-                    alert("Categories successfully updated");
-                } else Promise.reject();
+                    setTitle('Successful!');
+                    setSubTitle('Category successfully edited');
+                    setText('The category ' + res.data.esName + ' | ' + res.data.enName + ' was succesfully edited');
+                    setModalShow(true);
+                } else
+                    Promise.reject()
             })
-            .catch((err) => alert("Something went wrong"));
+            .catch(err => {
+                setTitle('Error!');
+                setSubTitle('Category not edited');
+                setText('The category was not edited: ' + err);
+                setModalShow(true);
+            })
     };
 
     useEffect(() => {
@@ -58,16 +73,30 @@ const EditCategory = () => {
                     base64Image,
                 });
             })
-            .catch((err) => console.log(err));
+            .catch(err => {
+                setTitle('Error!');
+                setSubTitle('There has bee an error');
+                setText('Error: ' + err);
+                setModalShow(true);
+            })
     }, [id]);
 
     return (
-        <CategoryForm
-            initialValues={formData}
-            onSubmit={onSubmit}
-        >
-            Update Category 
-        </CategoryForm>
+        <>
+            <CategoryForm
+                initialValues={formData}
+                onSubmit={onSubmit}
+            >
+                Update Category
+            </CategoryForm>
+            <CommonModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                title={title}
+                subTitle={subTitle}
+                text={text}
+            />
+        </>
     );
 };
 

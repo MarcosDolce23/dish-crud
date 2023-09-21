@@ -4,7 +4,6 @@ import Axios from "axios";
 import IngredientForm from "./IngredientForm";
 import { useParams } from "react-router";
 import CommonModal from './Common/CommonModal';
-import { useState } from 'react';
 
 // EditDish Component
 const EditIngredient = () => {
