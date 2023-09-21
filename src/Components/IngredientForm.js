@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import Utilities from "./Common/Utilities";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const IngredientForm = ({ initialValues, onSubmit }) => {
