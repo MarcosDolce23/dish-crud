@@ -6,6 +6,10 @@ import { useState } from 'react';
 
 const CreateDish = () => {
     const [modalShow, setModalShow] = useState(false);
+    const [title, setTitle] = useState('');
+    const [subTitle, setSubTitle] = useState('');
+    const [text, setText] = useState('');
+
     const formData = {
         esName: '',
         enName: '',
@@ -32,12 +36,20 @@ const CreateDish = () => {
         Axios.post(
             'http://localhost:4000/dishes', payload)
             .then(res => {
-                if (res.status === 200)
+                if (res.status === 200) {
+                    setTitle('Successful!');
+                    setSubTitle('Dish successfully created');
+                    setText('The dish ' + res.data.esName + ' | ' + res.data.enName + ' was succesfully created');
                     setModalShow(true);
-                else
+                } else
                     Promise.reject()
             })
-            .catch(err => console.log('Error: ' + err))
+            .catch(err => {
+                    setTitle('Error!');
+                    setSubTitle('Dish not created');
+                    setText('The dish was not created: ' + err);
+                    setModalShow(true);
+            })
     }
 
     return (
@@ -50,9 +62,9 @@ const CreateDish = () => {
             <CommonModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                title="Dish created"
-                subTitle="Dish successfully created"
-                text="The dish was successfully created"
+                title={title}
+                subTitle={subTitle}
+                text={text}
             />
 
         </>
