@@ -35,14 +35,16 @@ const DishForm = ({ initialValues, onSubmit }) => {
     }, [initialValues])
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+        } else {
+            onSubmit(formData);
         }
 
         setValidated(true);
-        // onSubmit(formData);
     };
 
     const updateIngredient = (ingredientObj) => {

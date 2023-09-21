@@ -1,8 +1,11 @@
 // CreateDish Component for add new dish
 import Axios from 'axios';
 import DishForm from "./DishForm";
+import CommonModal from './Common/CommonModal';
+import { useState } from 'react';
 
 const CreateDish = () => {
+    const [modalShow, setModalShow] = useState(false);
     const formData = {
         esName: '',
         enName: '',
@@ -21,16 +24,16 @@ const CreateDish = () => {
 
     // onSubmit handler    
     const addDish = (formData) => {
-        let payload =  JSON.parse(JSON.stringify(formData));
+        let payload = JSON.parse(JSON.stringify(formData));
         payload.ingredients.map(ingredient => {
             return delete ingredient.listId;
         });
 
         Axios.post(
-            'http://localhost:4000/dishes', payload )
+            'http://localhost:4000/dishes', payload)
             .then(res => {
                 if (res.status === 200)
-                    alert('Dish successfully created')
+                    setModalShow(true);
                 else
                     Promise.reject()
             })
@@ -38,11 +41,21 @@ const CreateDish = () => {
     }
 
     return (
-        <DishForm initialValues={formData}
-            onSubmit={addDish}
+        <>
+            <DishForm initialValues={formData}
+                onSubmit={addDish}
             >
-            Create dish
-        </DishForm>
+                Create dish
+            </DishForm>
+            <CommonModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                title="Dish created"
+                subTitle="Dish successfully created"
+                text="The dish was successfully created"
+            />
+
+        </>
     )
 }
 
