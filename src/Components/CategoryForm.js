@@ -94,7 +94,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
         return (
-            <div id="spinner">
+            <div id="spinner" className="spinner">
                 <Spinner animation="border" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </Spinner>
