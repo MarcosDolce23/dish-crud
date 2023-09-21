@@ -66,7 +66,6 @@ const CreateDish = () => {
                 subTitle={subTitle}
                 text={text}
             />
-
         </>
     )
 }

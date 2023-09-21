@@ -5,6 +5,11 @@ import DishForm from "./DishForm";
 import { useParams } from "react-router";
 
 const EditDish = () => {
+    const [modalShow, setModalShow] = useState(false);
+    const [title, setTitle] = useState('');
+    const [subTitle, setSubTitle] = useState('');
+    const [text, setText] = useState('');
+
     const [formData, setFormData] = useState({
         esName: '',
         enName: '',
@@ -25,7 +30,7 @@ const EditDish = () => {
 
     //onSubmit handler
     const onSubmit = (formData) => {
-        let payload =  JSON.parse(JSON.stringify(formData));
+        let payload = JSON.parse(JSON.stringify(formData));
         payload.ingredients.map(ingredient => {
             return delete ingredient.listId;
         });
@@ -36,12 +41,21 @@ const EditDish = () => {
                 id,
                 payload
             )
-            .then((res) => {
+            .then(res => {
                 if (res.status === 200) {
-                    alert("Dish successfully updated");
-                } else Promise.reject();
+                    setTitle('Successful!');
+                    setSubTitle('Dish successfully edited');
+                    setText('The dish ' + res.data.esName + ' | ' + res.data.enName + ' was succesfully edited');
+                    setModalShow(true);
+                } else
+                    Promise.reject()
             })
-            .catch((err) => alert("Something went wrong"));
+            .catch(err => {
+                setTitle('Error!');
+                setSubTitle('Dish not edited');
+                setText('The dish was not edited: ' + err);
+                setModalShow(true);
+            })
     };
 
     useEffect(() => {
@@ -82,16 +96,30 @@ const EditDish = () => {
                     base64Header
                 });
             })
-            .catch((err) => console.log(err));
+            .catch(err => {
+                setTitle('Error!');
+                setSubTitle('There has bee an error');
+                setText('Error: ' + err);
+                setModalShow(true);
+            })
     }, [id]);
 
     return (
-        <DishForm
-            initialValues={formData}
-            onSubmit={onSubmit}
-        >
-            Update Dish 
-        </DishForm>
+        <>
+            <DishForm
+                initialValues={formData}
+                onSubmit={onSubmit}
+            >
+                Update Dish
+            </DishForm>
+            <CommonModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                title={title}
+                subTitle={subTitle}
+                text={text}
+            />
+        </>
     );
 };
 
