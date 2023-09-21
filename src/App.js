@@ -32,7 +32,7 @@ import CreateCategory from
   "./Components/create-category.component";
 import CategoryList from
   "./Components/category-list.component";
-import EditCategory from 
+import EditCategory from
   "./Components/edit-category.component";
 
 // App Component
@@ -46,7 +46,7 @@ const App = () => {
               <Navbar.Brand>
                 <Link to={"/create-dish"}
                   className="nav-link">
-                  React MERN Stack App
+                  Dish CRUD
                 </Link>
               </Navbar.Brand>
 
