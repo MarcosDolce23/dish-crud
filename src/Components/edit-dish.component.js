@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import DishForm from "./DishForm";
 import { useParams } from "react-router";
+import CommonModal from './Common/CommonModal';
+import { useState } from 'react';
 
 const EditDish = () => {
     const [modalShow, setModalShow] = useState(false);

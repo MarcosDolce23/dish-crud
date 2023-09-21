@@ -1,6 +1,8 @@
 // CreateIngredient Component for add new ingredient
 import Axios from 'axios';
 import IngredientForm from './IngredientForm';
+import CommonModal from './Common/CommonModal';
+import { useState } from 'react';
 
 const CreateIngredient = () => {
     const [modalShow, setModalShow] = useState(false);
