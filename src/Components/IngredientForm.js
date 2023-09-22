@@ -24,6 +24,7 @@ const IngredientForm = ({ initialValues, onSubmit }) => {
 
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <h1>Create Ingredient</h1>
             <Row className="mb-3">
                 <Form.Group as={Col} md="3" controlId="validationCustom01">
                     <Form.Label>ES Name</Form.Label>

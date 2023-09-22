@@ -41,20 +41,23 @@ const DishList = () => {
         )
     } else {
         return (
-            <Table responsive striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>ES Name</th>
-                        <th>EN Name</th>
-                        <th>ES Label</th>
-                        <th>EN Label</th>
-                        <th>Cook time</th>
-                        <th>Vegan</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>{DataTable()}</tbody>
-            </Table>
+            <>
+                <h1>Dishes List</h1>
+                <Table responsive striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>ES Name</th>
+                            <th>EN Name</th>
+                            <th>ES Label</th>
+                            <th>EN Label</th>
+                            <th>Cook time</th>
+                            <th>Vegan</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>{DataTable()}</tbody>
+                </Table>
+            </>
         );
     }
 

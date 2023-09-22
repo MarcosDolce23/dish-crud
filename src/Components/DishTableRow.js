@@ -40,7 +40,7 @@ const DishesTableRow = (props) => {
                 <td>{esLabel}</td>
                 <td>{enLabel}</td>
                 <td>{cookTime}</td>
-                <td>{vegan.toString()}</td>
+                <td>{vegan ? 'YES' : 'NO'}</td>
                 <td>
                     <Link className="edit-link"
                         to={"/edit-dish/" + _id}>

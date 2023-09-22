@@ -41,16 +41,19 @@ const IngredientList = () => {
         )
     } else {
         return (
-            <Table responsive striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>ES Name</th>
-                        <th>EN Name</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>{DataTable()}</tbody>
-            </Table>
+            <>
+                <h1>Ingredients List</h1>
+                <Table responsive striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>ES Name</th>
+                            <th>EN Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>{DataTable()}</tbody>
+                </Table>
+            </>
         );
     }
 

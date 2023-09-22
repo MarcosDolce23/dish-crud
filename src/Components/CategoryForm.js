@@ -103,6 +103,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
     } else {
         return (
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <h1>Create Category</h1>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="3" controlId="validationCustom01">
                         <Form.Label>ES Name</Form.Label>
@@ -136,8 +137,8 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                         <Button variant="success" onClick={addIngredient}>Add Ingredient</Button>
                     </Col>
                 </Row>
-                <Form.Label>Image</Form.Label>
                 <Row className="mb-3">
+                    <Form.Label>Image</Form.Label>
                     <Form.Group as={Col} md="4" controlId="validationCustom03">
                         <Form.Control
                             type="file"
