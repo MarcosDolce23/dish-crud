@@ -10,7 +10,7 @@ const DishList = () => {
 
     useEffect(() => {
         Axios({
-            url: "http://localhost:4000/dishes/",
+            url: env.API_URL + "/dishes/",
         })
             .then((response) => {
                 setIsLoaded(true);

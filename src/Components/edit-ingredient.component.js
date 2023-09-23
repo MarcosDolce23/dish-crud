@@ -4,6 +4,7 @@ import Axios from "axios";
 import IngredientForm from "./IngredientForm";
 import { useParams } from "react-router";
 import CommonModal from './Common/CommonModal';
+import env from "react-dotenv";
 
 // EditDish Component
 const EditIngredient = () => {
@@ -23,7 +24,7 @@ const EditIngredient = () => {
     const onSubmit = (formData) => {
         Axios
             .put(
-                "http://localhost:4000/ingredients/" +
+                env.API_URL + "/ingredients/" +
                 id,
                 formData
             )
@@ -48,7 +49,7 @@ const EditIngredient = () => {
     useEffect(() => {
         Axios
             .get(
-                "http://localhost:4000/ingredients/"
+                env.API_URL + "/ingredients/"
                 + id
             )
             .then((res) => {

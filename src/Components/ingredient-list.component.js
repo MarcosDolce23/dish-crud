@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Table, Spinner } from "react-bootstrap";
 import IngredientsTableRow from "./IngredientTableRow";
+import env from "react-dotenv";
 
 const IngredientList = () => {
     const [error, setError] = useState(null);
@@ -10,7 +11,7 @@ const IngredientList = () => {
 
     useEffect(() => {
         Axios({
-            url: "http://localhost:4000/ingredients/",
+            url: env.API_URL + "/ingredients/",
         })
             .then((response) => {
                 setIsLoaded(true);

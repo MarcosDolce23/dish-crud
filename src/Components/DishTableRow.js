@@ -14,7 +14,7 @@ const DishesTableRow = (props) => {
     const deleteDish = () => {
         axios
             .delete(
-                "http://localhost:4000/dishes/" + _id)
+                env.API_URL + "/dishes/" + _id)
             .then(res => {
                 if (res.status === 200) {
                     setTitle('Successful!');

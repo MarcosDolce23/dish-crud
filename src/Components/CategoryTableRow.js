@@ -14,7 +14,7 @@ const CategoryTableRow = (props) => {
     const deleteCategory = () => {
         axios
             .delete(
-                "http://localhost:4000/categories/" + _id)
+                env.API_URL + "/categories/" + _id)
             .then(res => {
                 if (res.status === 200) {
                     setTitle('Successful!');

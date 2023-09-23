@@ -19,7 +19,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
         });
 
         Axios({
-            url: "http://localhost:4000/categories/",
+            url: env.API_URL + "/categories/",
         })
             .then((response) => {
                 setIsLoaded(true);

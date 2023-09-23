@@ -19,7 +19,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
         });
 
         Axios({
-            url: "http://localhost:4000/ingredients/",
+            url: env.API_URL + "/ingredients/",
         })
             .then((response) => {
                 setIsLoaded(true);

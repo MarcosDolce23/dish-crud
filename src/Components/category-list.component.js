@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Table, Spinner } from "react-bootstrap";
 import CategoryTableRow from "./CategoryTableRow";
+import env from "react-dotenv";
 
 const CategoryList = () => {
     const [error, setError] = useState(null);
@@ -10,7 +11,7 @@ const CategoryList = () => {
 
     useEffect(() => {
         Axios({
-            url: "http://localhost:4000/categories/",
+            url: env.API_URL + "/categories/",
         })
             .then((response) => {
                 setIsLoaded(true);
@@ -29,6 +30,7 @@ const CategoryList = () => {
         });
     };
 
+    console.log('Env: ' + env.API_URL);
     if (error) {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
