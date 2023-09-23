@@ -1,13 +1,16 @@
 // EditDish Component for update dish data
-
-// Import Modules
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import DishForm from "./DishForm";
 import { useParams } from "react-router";
+import CommonModal from './Common/CommonModal';
 
-// EditDish Component
 const EditDish = () => {
+    const [modalShow, setModalShow] = useState(false);
+    const [title, setTitle] = useState('');
+    const [subTitle, setSubTitle] = useState('');
+    const [text, setText] = useState('');
+
     const [formData, setFormData] = useState({
         esName: '',
         enName: '',
@@ -28,7 +31,7 @@ const EditDish = () => {
 
     //onSubmit handler
     const onSubmit = (formData) => {
-        let payload =  JSON.parse(JSON.stringify(formData));
+        let payload = JSON.parse(JSON.stringify(formData));
         payload.ingredients.map(ingredient => {
             return delete ingredient.listId;
         });
@@ -39,16 +42,23 @@ const EditDish = () => {
                 id,
                 payload
             )
-            .then((res) => {
+            .then(res => {
                 if (res.status === 200) {
-                    alert("Student successfully updated");
-                    // props.history.push("/dish-list");
-                } else Promise.reject();
+                    setTitle('Successful!');
+                    setSubTitle('Dish successfully edited');
+                    setText('The dish ' + res.data.esName + ' | ' + res.data.enName + ' was succesfully edited');
+                    setModalShow(true);
+                } else
+                    Promise.reject()
             })
-            .catch((err) => alert("Something went wrong"));
+            .catch(err => {
+                setTitle('Error!');
+                setSubTitle('Dish not edited');
+                setText('The dish was not edited: ' + err);
+                setModalShow(true);
+            })
     };
 
-    // Load data from server and reinitialize dish form
     useEffect(() => {
         Axios
             .get(
@@ -87,19 +97,31 @@ const EditDish = () => {
                     base64Header
                 });
             })
-            .catch((err) => console.log(err));
+            .catch(err => {
+                setTitle('Error!');
+                setSubTitle('There has bee an error');
+                setText('Error: ' + err);
+                setModalShow(true);
+            })
     }, [id]);
 
-    // Return dish form
     return (
-        <DishForm
-            initialValues={formData}
-            onSubmit={onSubmit}
-        >
-            Update Student
-        </DishForm>
+        <>
+            <DishForm
+                initialValues={formData}
+                onSubmit={onSubmit}
+            >
+                Update Dish
+            </DishForm>
+            <CommonModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                title={title}
+                subTitle={subTitle}
+                text={text}
+            />
+        </>
     );
 };
 
-// Export EditDish Component
 export default EditDish;

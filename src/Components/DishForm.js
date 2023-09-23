@@ -2,7 +2,6 @@ import React from "react";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Spinner } from "react-bootstrap";
-import { saveAs } from "file-saver";
 import IngredientsDropdown from "./IngredientsDropdown";
 import Utilities from "./Common/Utilities";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -36,14 +35,14 @@ const DishForm = ({ initialValues, onSubmit }) => {
     }, [initialValues])
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
-
-        setValidated(true);
-        onSubmit(formData);
+            setValidated(true);
+        } else
+            onSubmit(formData);
     };
 
     const updateIngredient = (ingredientObj) => {
@@ -79,29 +78,17 @@ const DishForm = ({ initialValues, onSubmit }) => {
         const file = e.target.files[0];
         if (!file) return;
         const base64 = await Utilities.convertBase64(file);
-        const name = Utilities.getRandomInt() + '-image' + file.name.substr(-3);
+        const name = Utilities.getRandomInt() + '-image.' + file.name.substr(-3);
         setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
     const handleHeaderImage = async (e) => {
         const file = e.target.files[0];
         const base64 = await Utilities.convertBase64(file);
-        const name = Utilities.getRandomInt() + '-header' + file.name.substr(-3);
+        const name = Utilities.getRandomInt() + '-header.' + file.name.substr(-3);
         setFormData({ ...formData, headerImage: name, base64Header: base64 });
     };
 
-    const openImage = (src) => {
-        let image = new Image();
-        image.src = src;
-
-        let w = window.open("");
-        w.document.write(image.outerHTML);
-    };
-
-    const downloadImage = (src, name) => {
-        let file = Utilities.convertBase64ToFile(src, name);
-        saveAs(file, name);
-    }
     const renderIngredients = formData.ingredients.map(ingredient => <IngredientsDropdown
         key={ingredient.listId}
         categories={categories}
@@ -114,7 +101,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
         return (
-            <div id="spinner">
+            <div id="spinner" className="spinner">
                 <Spinner animation="border" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </Spinner>
@@ -123,6 +110,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
     } else {
         return (
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <h1>Create Dish</h1>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="3" controlId="validationCustom01">
                         <Form.Label>ES Name</Form.Label>
@@ -228,8 +216,8 @@ const DishForm = ({ initialValues, onSubmit }) => {
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
-                <Form.Label>Image</Form.Label>
                 <Row className="mb-3">
+                    <Form.Label>Image</Form.Label>
                     <Form.Group as={Col} md="4" controlId="validationCustom09">
                         <Form.Control
                             type="file"
@@ -243,7 +231,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => openImage(formData.base64Image)}
+                                        onClick={() => Utilities.openImage(formData.base64Image)}
                                     >See Image</Button>
                                 </div>
                             </Col>
@@ -251,7 +239,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
+                                        onClick={() => Utilities.downloadImage(formData.base64Image, formData.image)}
                                     >Download</Button>
                                 </div>
                             </Col>
@@ -275,7 +263,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => openImage(formData.base64Header)}
+                                        onClick={() => Utilities.openImage(formData.base64Header)}
                                     >See Image</Button>
                                 </div>
                             </Col>
@@ -283,7 +271,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => downloadImage(formData.base64Header, formData.headerImage)}
+                                        onClick={() => Utilities.downloadImage(formData.base64Header, formData.headerImage)}
                                     >Download</Button>
                                 </div>
                             </Col>

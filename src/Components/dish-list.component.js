@@ -33,7 +33,7 @@ const DishList = () => {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
         return (
-            <div id="spinner">
+            <div id="spinner" className="spinner">
                 <Spinner animation="border" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </Spinner>
@@ -41,20 +41,23 @@ const DishList = () => {
         )
     } else {
         return (
-            <Table responsive striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>ES Name</th>
-                        <th>EN Name</th>
-                        <th>ES Label</th>
-                        <th>EN Label</th>
-                        <th>Cook time</th>
-                        <th>Vegan</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>{DataTable()}</tbody>
-            </Table>
+            <>
+                <h1>Dishes List</h1>
+                <Table responsive striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>ES Name</th>
+                            <th>EN Name</th>
+                            <th>ES Label</th>
+                            <th>EN Label</th>
+                            <th>Cook time</th>
+                            <th>Vegan</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>{DataTable()}</tbody>
+                </Table>
+            </>
         );
     }
 

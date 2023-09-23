@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Form, Row, Col, CloseButton } from "react-bootstrap";
 
 const CategoryIngredientsDropdown = ({ ingredients, ingredient, updateIngredient, removeIngredient }) => {
@@ -17,11 +16,11 @@ const CategoryIngredientsDropdown = ({ ingredients, ingredient, updateIngredient
 
     return (
         <Row className="mb-3">
-            <Form.Group as={Col} xs="4" md="3" controlId="validationCustomIngre">
-                <Form.Select value={ingredient._id} onChange={(e) => handleIngredientSelect(e)}>
-                    <option>Select an ingredient</option>
+            <Form.Group as={Col} xs="4" md="3">
+                <Form.Control required as="select" value={ingredient._id} onChange={(e) => handleIngredientSelect(e)}>
+                    <option value="">Select an ingredient</option>
                     {ingredientList}
-                </Form.Select>
+                </Form.Control>
             </Form.Group>
             <Form.Group as={Col} xs="4" md="3">
                 <CloseButton onClick={() => removeIngredient(ingredient)} />

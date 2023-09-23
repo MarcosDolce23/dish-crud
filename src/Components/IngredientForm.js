@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import Utilities from "./Common/Utilities";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const IngredientForm = ({ initialValues, onSubmit }) => {
@@ -13,18 +12,19 @@ const IngredientForm = ({ initialValues, onSubmit }) => {
     }, [initialValues])
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
-
-        setValidated(true);
-        onSubmit(formData);
+            setValidated(true);
+        } else
+            onSubmit(formData);
     };
 
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <h1>Create Ingredient</h1>
             <Row className="mb-3">
                 <Form.Group as={Col} md="3" controlId="validationCustom01">
                     <Form.Label>ES Name</Form.Label>

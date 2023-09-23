@@ -36,17 +36,17 @@ const IngredientsDropdown = ({ categories, ingredient, updateIngredient, removeI
 
     return (
         <Row className="mb-3">
-            <Form.Group as={Col} xs="4" md="3" controlId="validationCustomIngre">
-                <Form.Select value={category._id} onChange={(e) => handleCategorySelect(e)}>
-                    <option>Select a category</option>
+            <Form.Group as={Col} xs="4" md="3">
+                <Form.Control as="select" value={category._id} onChange={(e) => handleCategorySelect(e)} required>
+                    <option value="">Select a category</option>
                     {categoryList}
-                </Form.Select>
+                </Form.Control>
             </Form.Group>
             <Form.Group as={Col} xs="4" md="3" controlId="validationCustomIngre">
-                <Form.Select value={ingredient._id} onChange={(e) => handleIngredientSelect(e)}>
-                    <option>Select an ingredient</option>
+                <Form.Control as="select" value={ingredient._id} onChange={(e) => handleIngredientSelect(e)} required>
+                    <option value="">Select an ingredient</option>
                     {ingredientList}
-                </Form.Select>
+                </Form.Control>
             </Form.Group>
             <Form.Group as={Col} xs="4" md="3">
                 <CloseButton onClick={() => removeIngredient(ingredient)} />

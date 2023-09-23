@@ -1,3 +1,5 @@
+import { saveAs } from "file-saver";
+
 export default class Utilities {
     static getRandomInt() {
         return Math.floor(Math.random() * (2000 - 1000) + 1000);
@@ -29,4 +31,18 @@ export default class Utilities {
         let file = new File([uint8Array], fileName, { type: mime });
         return file;
     }
+    
+    static openImage(src) {
+        let image = new Image();
+        image.src = src;
+
+        let w = window.open("");
+        w.document.write(image.outerHTML);
+    };
+
+    static downloadImage(src, name) {
+        let file = Utilities.convertBase64ToFile(src, name);
+        saveAs(file, name);
+    }
 }
+    
