@@ -16,6 +16,8 @@ import {
 } from "react-router-dom";
 
 // Import other React Component
+import LoginForm from
+  "./Components/LoginForm";
 import CreateDish from
   "./Components/create-dish.component";
 import EditDish from
@@ -106,7 +108,7 @@ const App = () => {
               <div className="wrapper">
                 <Routes>
                   <Route exact path="/"
-                    element={<CreateDish />} />
+                    element={<LoginForm />} />
                   <Route path="/create-dish"
                     element={<CreateDish />} />
                   <Route path="/edit-dish/:id"
@@ -131,7 +133,7 @@ const App = () => {
           </Row>
         </Container>
       </div>
-    </Router >
+    </Router>
   );
 };
 
