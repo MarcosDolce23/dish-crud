@@ -78,14 +78,14 @@ const DishForm = ({ initialValues, onSubmit }) => {
         const file = e.target.files[0];
         if (!file) return;
         const base64 = await Utilities.convertBase64(file);
-        const name = Utilities.getRandomInt() + '-image' + file.name.substr(-3);
+        const name = Utilities.getRandomInt() + '-image.' + file.name.substr(-3);
         setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
     const handleHeaderImage = async (e) => {
         const file = e.target.files[0];
         const base64 = await Utilities.convertBase64(file);
-        const name = Utilities.getRandomInt() + '-header' + file.name.substr(-3);
+        const name = Utilities.getRandomInt() + '-header.' + file.name.substr(-3);
         setFormData({ ...formData, headerImage: name, base64Header: base64 });
     };
 
@@ -239,7 +239,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => Utilities.downloadImage(formData.base64Header, formData.headerImage)}
+                                        onClick={() => Utilities.downloadImage(formData.base64Image, formData.image)}
                                     >Download</Button>
                                 </div>
                             </Col>

@@ -78,7 +78,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
         const file = e.target.files[0];
         if (!file) return;
         const base64 = await Utilities.convertBase64(file);
-        const name = Utilities.getRandomInt() + '-image' + file.name.substr(-3);
+        const name = Utilities.getRandomInt() + '-image.' + file.name.substr(-3);
         setFormData({ ...formData, image: name, base64Image: base64 });
     };
 
@@ -160,7 +160,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                                 <div className="d-grid gap-2">
                                     <Button
                                         variant="success"
-                                        onClick={() => Utilities.downloadImage(formData.base64Header, formData.headerImage)}
+                                        onClick={() => Utilities.downloadImage(formData.base64Image, formData.image)}
                                     >Download</Button>
                                 </div>
                             </Col>
