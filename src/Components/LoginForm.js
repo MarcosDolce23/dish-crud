@@ -2,10 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({ user: '', password: '' });
     const [validated, setValidated] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -15,7 +18,8 @@ const LoginForm = ({ onSubmit }) => {
             event.stopPropagation();
             setValidated(true);
         } else
-            onSubmit(formData);
+        //     onSubmit(formData);
+        return navigate("/dish-list");
     };
 
     return (
