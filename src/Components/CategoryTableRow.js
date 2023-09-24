@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import CommonModal from './Common/CommonModal';
+import env from "react-dotenv";
 
 const CategoryTableRow = (props) => {
     const { _id, esName, enName } = props.obj;

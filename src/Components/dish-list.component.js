@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Table, Spinner } from "react-bootstrap";
 import DishTableRow from "./DishTableRow";
+import env from "react-dotenv";
 
 const DishList = () => {
     const [error, setError] = useState(null);
