@@ -3,6 +3,7 @@ import Axios from 'axios';
 import IngredientForm from './IngredientForm';
 import CommonModal from './Common/CommonModal';
 import { useState } from 'react';
+import env from "react-dotenv";
 
 const CreateIngredient = () => {
     const [modalShow, setModalShow] = useState(false);
@@ -18,7 +19,7 @@ const CreateIngredient = () => {
     // onSubmit handler    
     const addIngredient = (formData) => {
         Axios.post(
-            'http://localhost:4000/ingredients', formData)
+            env.API_URL + '/ingredients', formData)
             .then(res => {
                 if (res.status === 200) {
                     setTitle('Successful!');

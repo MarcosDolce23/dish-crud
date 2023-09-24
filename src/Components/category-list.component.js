@@ -30,7 +30,6 @@ const CategoryList = () => {
         });
     };
 
-    console.log('Env: ' + env.API_URL);
     if (error) {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {

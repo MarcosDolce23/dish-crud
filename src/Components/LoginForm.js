@@ -2,13 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from "react-router-dom";
 
-const LoginForm = ({ onSubmit }) => {
-    const [formData, setFormData] = useState({ user: '', password: '' });
+const LoginForm = ({ initialValues, onSubmit }) => {
+    const [formData, setFormData] = useState({ ...initialValues });
     const [validated, setValidated] = useState(false);
-
-    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -17,9 +14,10 @@ const LoginForm = ({ onSubmit }) => {
             event.preventDefault();
             event.stopPropagation();
             setValidated(true);
-        } else
-        //     onSubmit(formData);
-        return navigate("/dish-list");
+        } else {
+                onSubmit(formData);
+            // return navigate("/dish-list");
+        }
     };
 
     return (
@@ -35,15 +33,15 @@ const LoginForm = ({ onSubmit }) => {
                         onChange={e => setFormData({ ...formData, user: e.target.value })}
                     />
                 </Form.Group>
-                </Row>
-                <Row className="mb-3">
+            </Row>
+            <Row className="mb-3">
                 <Form.Group as={Col} md="3" controlId="validationCustom02">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         required
                         type="password"
                         placeholder="Password"
-                        value={formData.name}
+                        value={formData.password}
                         onChange={e => setFormData({ ...formData, password: e.target.value })}
                     />
                 </Form.Group>

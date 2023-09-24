@@ -3,6 +3,7 @@ import Axios from 'axios';
 import DishForm from "./DishForm";
 import CommonModal from './Common/CommonModal';
 import { useState } from 'react';
+import env from "react-dotenv";
 
 const CreateDish = () => {
     const [modalShow, setModalShow] = useState(false);
@@ -34,7 +35,7 @@ const CreateDish = () => {
         });
 
         Axios.post(
-            'http://localhost:4000/dishes', payload)
+            env.API_URL + '/dishes', payload)
             .then(res => {
                 if (res.status === 200) {
                     setTitle('Successful!');

@@ -3,6 +3,7 @@ import Axios from 'axios';
 import CategoryForm from './CategoryForm';
 import CommonModal from './Common/CommonModal';
 import { useState } from 'react';
+import env from "react-dotenv";
 
 const CreateCategory = () => {
     const [modalShow, setModalShow] = useState(false);
@@ -26,7 +27,7 @@ const CreateCategory = () => {
         });
 
         Axios.post(
-            'http://localhost:4000/categories', payload)
+            env.API_URL + '/categories', payload)
             .then(res => {
                 if (res.status === 200) {
                     setTitle('Successful!');
