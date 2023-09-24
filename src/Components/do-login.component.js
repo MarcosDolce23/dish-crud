@@ -13,28 +13,29 @@ const DoLogin = () => {
     const [text, setText] = useState('');
 
     const navigate = useNavigate();
-    
+
     const formData = {
-        name: '',
+        user: '',
         password: ''
     };
 
     // onSubmit handler    
     const doLogin = (formData) => {
-        // Axios.post(
-        //     env.API_URL + '/login', formData)
-        //     .then(res => {
-        //         if (res.status === 200) {
-        //         } else
-        //             Promise.reject()
-        //     })
-        //     .catch(err => {
-        //         setTitle('Error!');
-        //         setSubTitle('Ingredient not created');
-        //         setText('The ingredient was not created: ' + err);
-        //         setModalShow(true);
-        //     })
-            return navigate("/dish-list");
+        Axios.post(
+            env.API_URL + '/users', formData)
+            .then(res => {
+                if (res.status === 200) {
+                    if (res.data.length > 0)
+                        return navigate("/dish-list");
+                } else
+                    Promise.reject()
+            })
+            .catch(err => {
+                setTitle('Error!');
+                setSubTitle('Something went wrong');
+                setText('Error: ' + err);
+                setModalShow(true);
+            })
     }
 
     // Return ingredient form
@@ -43,7 +44,7 @@ const DoLogin = () => {
             <LoginForm initialValues={formData}
                 onSubmit={doLogin}
             >
-               Login Form 
+                Login Form
             </LoginForm>
             <CommonModal
                 show={modalShow}
