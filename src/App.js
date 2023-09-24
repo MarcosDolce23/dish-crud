@@ -1,5 +1,5 @@
 // Import React
-import React, { useState } from "react";
+import React from "react";
 
 // Import Bootstrap
 import { Nav, Navbar, Container, Row, Col }

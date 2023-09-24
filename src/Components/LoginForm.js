@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,7 +16,6 @@ const LoginForm = ({ initialValues, onSubmit }) => {
             setValidated(true);
         } else {
             onSubmit(formData);
-            // return navigate("/dish-list");
         }
     };
 
