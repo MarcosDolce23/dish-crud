@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Form, Row, Col, Button, Alert } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const LoginForm = ({ initialValues, onSubmit }) => {
+const LoginForm = ({ initialValues, onSubmit, userCorrect }) => {
     const [formData, setFormData] = useState({ ...initialValues });
     const [validated, setValidated] = useState(false);
 
@@ -45,13 +45,24 @@ const LoginForm = ({ initialValues, onSubmit }) => {
                     />
                 </Form.Group>
             </Row>
-            <Row>
+            <Row className="mb-3">
                 <Col md={{ span: 3, offset: 4 }}>
                     <div className="d-grid gap-2">
                         <Button type="submit">Sign in</Button>
                     </div>
                 </Col>
             </Row>
+            {userCorrect ? (
+                null
+            ) : (
+                <Row>
+                    <Col md={{ span: 3, offset: 4 }}>
+                        <Alert variant="danger">
+                            User incorrect!
+                        </Alert>
+                    </Col>
+                </Row>
+            )}
         </Form>
     );
 };

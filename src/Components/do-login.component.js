@@ -11,6 +11,7 @@ const DoLogin = () => {
     const [title, setTitle] = useState('');
     const [subTitle, setSubTitle] = useState('');
     const [text, setText] = useState('');
+    const [userCorrect, setUserCorrect] = useState(true);
 
     const navigate = useNavigate();
 
@@ -27,6 +28,8 @@ const DoLogin = () => {
                 if (res.status === 200) {
                     if (res.data.length > 0)
                         return navigate("/dish-list");
+                    else
+                        setUserCorrect(false);
                 } else
                     Promise.reject()
             })
@@ -43,6 +46,7 @@ const DoLogin = () => {
         <>
             <LoginForm initialValues={formData}
                 onSubmit={doLogin}
+                userCorrect={userCorrect}
             >
                 Login Form
             </LoginForm>
