@@ -38,7 +38,7 @@ const EditDish = () => {
 
         Axios
             .put(
-                "http://localhost:4000/dishes/" +
+                env.API_URL + "/dishes/" +
                 id,
                 payload
             )
@@ -62,7 +62,7 @@ const EditDish = () => {
     useEffect(() => {
         Axios
             .get(
-                "http://localhost:4000/dishes/"
+                env.API_URL + "/dishes/"
                 + id
             )
             .then((res) => {

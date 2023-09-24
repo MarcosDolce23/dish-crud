@@ -35,7 +35,6 @@ const IngredientForm = ({ initialValues, onSubmit }) => {
                         value={formData.esName}
                         onChange={e => setFormData({ ...formData, esName: e.target.value })}
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="3" controlId="validationCustom02">
                     <Form.Label>EN Name</Form.Label>
@@ -46,7 +45,6 @@ const IngredientForm = ({ initialValues, onSubmit }) => {
                         value={formData.enName}
                         onChange={e => setFormData({ ...formData, enName: e.target.value })}
                     />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
             </Row>
             <Button xs="12" type="submit">Submit form</Button>

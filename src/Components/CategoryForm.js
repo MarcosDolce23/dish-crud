@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Spinner } from "react-bootstrap";
 import CategoryIngredientsDropdown from "./CategoryIngredientsDropdown";
 import Utilities from "./Common/Utilities";
+import env from "react-dotenv";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CategoryForm = ({ initialValues, onSubmit }) => {
@@ -19,7 +20,7 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
         });
 
         Axios({
-            url: "http://localhost:4000/ingredients/",
+            url: env.API_URL + "/ingredients/",
         })
             .then((response) => {
                 setIsLoaded(true);
@@ -114,7 +115,6 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                             value={formData.esName}
                             onChange={e => setFormData({ ...formData, esName: e.target.value })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="validationCustom02">
                         <Form.Label>EN Name</Form.Label>
@@ -125,7 +125,6 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                             value={formData.enName}
                             onChange={e => setFormData({ ...formData, enName: e.target.value })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
@@ -144,7 +143,6 @@ const CategoryForm = ({ initialValues, onSubmit }) => {
                             type="file"
                             onChange={e => handleImage(e)}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     {formData.image ? (
                         <>

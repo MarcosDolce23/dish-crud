@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Form, Row, Col, Button, Spinner } from "react-bootstrap";
 import IngredientsDropdown from "./IngredientsDropdown";
 import Utilities from "./Common/Utilities";
+import env from "react-dotenv";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DishForm = ({ initialValues, onSubmit }) => {
@@ -19,7 +20,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
         });
 
         Axios({
-            url: "http://localhost:4000/categories/",
+            url: env.API_URL + "/categories/",
         })
             .then((response) => {
                 setIsLoaded(true);
@@ -121,7 +122,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             value={formData.esName}
                             onChange={e => setFormData({ ...formData, esName: e.target.value })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="validationCustom02">
                         <Form.Label>EN Name</Form.Label>
@@ -132,7 +132,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             value={formData.enName}
                             onChange={e => setFormData({ ...formData, enName: e.target.value })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
@@ -145,7 +144,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             value={formData.esLabel}
                             onChange={e => setFormData({ ...formData, esLabel: e.target.value })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} md="3" controlId="validationCustom04">
                         <Form.Label>EN Label</Form.Label>
@@ -156,7 +154,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             value={formData.enLabel}
                             onChange={e => setFormData({ ...formData, enLabel: e.target.value })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
@@ -169,7 +166,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             value={formData.cookTime}
                             onChange={e => setFormData({ ...formData, cookTime: e.target.value })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
@@ -200,7 +196,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             value={formData.esRecipe.join('\n')}
                             onChange={e => setFormData({ ...formData, esRecipe: e.target.value.split(/\r\n|\r|\n/g) })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
@@ -213,7 +208,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             value={formData.enRecipe.join('\n')}
                             onChange={e => setFormData({ ...formData, enRecipe: e.target.value.split(/\r\n|\r|\n/g) })}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
@@ -223,7 +217,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             type="file"
                             onChange={e => handleImage(e)}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     {formData.image ? (
                         <>
@@ -255,7 +248,6 @@ const DishForm = ({ initialValues, onSubmit }) => {
                             type="file"
                             onChange={e => handleHeaderImage(e)}
                         />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                     {formData.headerImage ? (
                         <>

@@ -11,11 +11,13 @@ import "./App.css";
 
 // Import from react-router-dom
 import {
-  BrowserRouter as Router, Routes,
-  Route, Link
+  Routes,
+  Route, Link, useLocation
 } from "react-router-dom";
 
 // Import other React Component
+import DoLogin from
+  "./Components/do-login.component";
 import CreateDish from
   "./Components/create-dish.component";
 import EditDish from
@@ -37,64 +39,69 @@ import EditCategory from
 
 // App Component
 const App = () => {
+  const location = useLocation();
+
   return (
-    <Router>
       <div className="App">
         <header className="App-header">
           <Navbar bg="dark" variant="dark">
             <Container>
               <Navbar.Brand>
-                <Link to={"/create-dish"}
+                <Link to={location.pathname === "/" ? "/" : "/dish-list"}
                   className="nav-link">
                   Dish CRUD
                 </Link>
               </Navbar.Brand>
 
-              <Nav className="justify-content-end">
+              {location.pathname === "/" ? (
+               <h6 className="justify-content-end" style={{ color: "white" }}>V1.0.0</h6> 
+              ) : (
+                <Nav className="justify-content-end">
 
-                <Nav>
-                  <Link to={"/create-dish"}
-                    className="nav-link">
-                    Create Dish
-                  </Link>
+                  <Nav>
+                    <Link to={"/create-dish"}
+                      className="nav-link">
+                      Create Dish
+                    </Link>
+                  </Nav>
+
+                  <Nav>
+                    <Link to={"/dish-list"}
+                      className="nav-link">
+                      Dish List
+                    </Link>
+                  </Nav>
+
+                  <Nav>
+                    <Link to={"/create-ingredient"}
+                      className="nav-link">
+                      Create Ingredient
+                    </Link>
+                  </Nav>
+
+                  <Nav>
+                    <Link to={"/ingredient-list"}
+                      className="nav-link">
+                      Ingredient List
+                    </Link>
+                  </Nav>
+
+                  <Nav>
+                    <Link to={"/create-category"}
+                      className="nav-link">
+                      Create Category
+                    </Link>
+                  </Nav>
+
+                  <Nav>
+                    <Link to={"/category-list"}
+                      className="nav-link">
+                      Category List
+                    </Link>
+                  </Nav>
+
                 </Nav>
-
-                <Nav>
-                  <Link to={"/dish-list"}
-                    className="nav-link">
-                    Dish List
-                  </Link>
-                </Nav>
-
-                <Nav>
-                  <Link to={"/create-ingredient"}
-                    className="nav-link">
-                    Create Ingredient
-                  </Link>
-                </Nav>
-
-                <Nav>
-                  <Link to={"/ingredient-list"}
-                    className="nav-link">
-                    Ingredient List
-                  </Link>
-                </Nav>
-
-                <Nav>
-                  <Link to={"/create-category"}
-                    className="nav-link">
-                    Create Category
-                  </Link>
-                </Nav>
-
-                <Nav>
-                  <Link to={"/category-list"}
-                    className="nav-link">
-                    Category List
-                  </Link>
-                </Nav>
-
-              </Nav>
+              )}
 
             </Container>
           </Navbar>
@@ -106,7 +113,7 @@ const App = () => {
               <div className="wrapper">
                 <Routes>
                   <Route exact path="/"
-                    element={<CreateDish />} />
+                    element={<DoLogin />} />
                   <Route path="/create-dish"
                     element={<CreateDish />} />
                   <Route path="/edit-dish/:id"
@@ -131,7 +138,6 @@ const App = () => {
           </Row>
         </Container>
       </div>
-    </Router >
   );
 };
 

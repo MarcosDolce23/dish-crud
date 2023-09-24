@@ -1,38 +1,42 @@
-// CreateIngredient Component for add new ingredient
+// DoLogin Component for add new ingredient
 import Axios from 'axios';
-import IngredientForm from './IngredientForm';
+import LoginForm from './LoginForm';
 import CommonModal from './Common/CommonModal';
 import { useState } from 'react';
 import env from "react-dotenv";
+import { useNavigate } from "react-router-dom";
 
-const CreateIngredient = () => {
+const DoLogin = () => {
     const [modalShow, setModalShow] = useState(false);
     const [title, setTitle] = useState('');
     const [subTitle, setSubTitle] = useState('');
     const [text, setText] = useState('');
+    const [userCorrect, setUserCorrect] = useState(true);
+
+    const navigate = useNavigate();
 
     const formData = {
-        esName: '',
-        enName: ''
+        user: '',
+        password: ''
     };
 
     // onSubmit handler    
-    const addIngredient = (formData) => {
+    const doLogin = (formData) => {
         Axios.post(
-            env.API_URL + '/ingredients', formData)
+            env.API_URL + '/users', formData)
             .then(res => {
                 if (res.status === 200) {
-                    setTitle('Successful!');
-                    setSubTitle('Ingredient successfully created');
-                    setText('The ingredient ' + res.data.esName + ' | ' + res.data.enName + ' was succesfully created');
-                    setModalShow(true);
+                    if (res.data.length > 0)
+                        return navigate("/dish-list");
+                    else
+                        setUserCorrect(false);
                 } else
                     Promise.reject()
             })
             .catch(err => {
                 setTitle('Error!');
-                setSubTitle('Ingredient not created');
-                setText('The ingredient was not created: ' + err);
+                setSubTitle('Something went wrong');
+                setText('Error: ' + err);
                 setModalShow(true);
             })
     }
@@ -40,11 +44,13 @@ const CreateIngredient = () => {
     // Return ingredient form
     return (
         <>
-            <IngredientForm initialValues={formData}
-                onSubmit={addIngredient}
+            <LoginForm initialValues={formData}
+                onSubmit={doLogin}
+                userCorrect={userCorrect}
+                setUserCorrect={setUserCorrect}
             >
-                Create ingredient
-            </IngredientForm>
+                Login Form
+            </LoginForm>
             <CommonModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -56,5 +62,5 @@ const CreateIngredient = () => {
     )
 }
 
-// Export CreateDish Component
-export default CreateIngredient;
+// Export DoLogin Component
+export default DoLogin;

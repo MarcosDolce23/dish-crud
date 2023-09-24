@@ -30,7 +30,7 @@ const EditCategory = () => {
 
         Axios
             .put(
-                "http://localhost:4000/categories/" +
+                env.API_URL + "/categories/" +
                 id,
                 payload
             )
@@ -54,7 +54,7 @@ const EditCategory = () => {
     useEffect(() => {
         Axios
             .get(
-                "http://localhost:4000/categories/"
+                env.API_URL + "/categories/"
                 + id
             )
             .then((res) => {

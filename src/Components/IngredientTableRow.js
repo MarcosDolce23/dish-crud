@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import CommonModal from './Common/CommonModal';
+import env from "react-dotenv";
 
 const IngredientsTableRow = (props) => {
     const { _id, esName, enName } = props.obj;
@@ -14,7 +15,7 @@ const IngredientsTableRow = (props) => {
     const deleteIngredient = () => {
         axios
             .delete(
-                "http://localhost:4000/ingredients/" + _id)
+                env.API_URL + "/ingredients/" + _id)
             .then(res => {
                 if (res.status === 200) {
                     setTitle('Successful!');
