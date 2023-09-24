@@ -11,8 +11,8 @@ import "./App.css";
 
 // Import from react-router-dom
 import {
-  BrowserRouter as Router, Routes,
-  Route, Link
+  Routes,
+  Route, Link, useLocation
 } from "react-router-dom";
 
 // Import other React Component
@@ -39,22 +39,21 @@ import EditCategory from
 
 // App Component
 const App = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const location = useLocation();
 
   return (
-    <Router>
       <div className="App">
         <header className="App-header">
           <Navbar bg="dark" variant="dark">
             <Container>
               <Navbar.Brand>
-                <Link to={"/create-dish"}
+                <Link to={location.pathname === "/" ? "/" : "/dish-list"}
                   className="nav-link">
                   Dish CRUD
                 </Link>
               </Navbar.Brand>
 
-              {isLogin ? (
+              {location.pathname === "/" ? (
                 null
               ) : (
                 <Nav className="justify-content-end">
@@ -114,7 +113,7 @@ const App = () => {
               <div className="wrapper">
                 <Routes>
                   <Route exact path="/"
-                    element={<DoLogin setIsLogin={setIsLogin}/>} />
+                    element={<DoLogin />} />
                   <Route path="/create-dish"
                     element={<CreateDish />} />
                   <Route path="/edit-dish/:id"
@@ -139,7 +138,6 @@ const App = () => {
           </Row>
         </Container>
       </div>
-    </Router>
   );
 };
 

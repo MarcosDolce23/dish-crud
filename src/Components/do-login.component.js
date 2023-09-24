@@ -6,7 +6,7 @@ import { useState } from 'react';
 import env from "react-dotenv";
 import { useNavigate } from "react-router-dom";
 
-const DoLogin = ({ setIsLogin }) => {
+const DoLogin = () => {
     const [modalShow, setModalShow] = useState(false);
     const [title, setTitle] = useState('');
     const [subTitle, setSubTitle] = useState('');
@@ -34,7 +34,6 @@ const DoLogin = ({ setIsLogin }) => {
         //         setText('The ingredient was not created: ' + err);
         //         setModalShow(true);
         //     })
-            setIsLogin(false);
             return navigate("/dish-list");
     }
 
