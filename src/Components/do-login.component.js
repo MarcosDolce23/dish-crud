@@ -47,6 +47,7 @@ const DoLogin = () => {
             <LoginForm initialValues={formData}
                 onSubmit={doLogin}
                 userCorrect={userCorrect}
+                setUserCorrect={setUserCorrect}
             >
                 Login Form
             </LoginForm>

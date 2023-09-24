@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Form, Row, Col, Button, Alert } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const LoginForm = ({ initialValues, onSubmit, userCorrect }) => {
+const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => {
     const [formData, setFormData] = useState({ ...initialValues });
     const [validated, setValidated] = useState(false);
 
@@ -20,7 +20,7 @@ const LoginForm = ({ initialValues, onSubmit, userCorrect }) => {
     };
 
     return (
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form noValidate validated={validated} onSubmit={handleSubmit} onChange={() => setUserCorrect(true)}>
             <Row className="mb-3">
                 <Form.Group as={Col} md={{ span: 3, offset: 4 }} controlId="validationCustom01">
                     <Form.Label>User</Form.Label>
