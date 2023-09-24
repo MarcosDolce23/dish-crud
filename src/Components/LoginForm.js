@@ -15,7 +15,7 @@ const LoginForm = ({ initialValues, onSubmit }) => {
             event.stopPropagation();
             setValidated(true);
         } else {
-                onSubmit(formData);
+            onSubmit(formData);
             // return navigate("/dish-list");
         }
     };
@@ -23,7 +23,7 @@ const LoginForm = ({ initialValues, onSubmit }) => {
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="mb-3">
-                <Form.Group as={Col} md="3" controlId="validationCustom01">
+                <Form.Group as={Col} md={{ span: 3, offset: 4 }} controlId="validationCustom01">
                     <Form.Label>User</Form.Label>
                     <Form.Control
                         required
@@ -35,7 +35,7 @@ const LoginForm = ({ initialValues, onSubmit }) => {
                 </Form.Group>
             </Row>
             <Row className="mb-3">
-                <Form.Group as={Col} md="3" controlId="validationCustom02">
+                <Form.Group as={Col} md={{ span: 3, offset: 4 }} controlId="validationCustom02">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         required
@@ -46,7 +46,13 @@ const LoginForm = ({ initialValues, onSubmit }) => {
                     />
                 </Form.Group>
             </Row>
-            <Button xs="12" type="submit">Sign in</Button>
+            <Row>
+                <Col md={{ span: 3, offset: 4 }}>
+                    <div className="d-grid gap-2">
+                        <Button type="submit">Sign in</Button>
+                    </div>
+                </Col>
+            </Row>
         </Form>
     );
 };
