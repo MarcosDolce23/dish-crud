@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Form, Row, Col, Button, Alert } from "react-bootstrap";
+import { Form, Row, Col, Button, Alert, Spinner } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => {
@@ -48,7 +48,17 @@ const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => 
             <Row className="mb-3">
                 <Col md={{ span: 3, offset: 4 }}>
                     <div className="d-grid gap-2">
-                        <Button type="submit">Sign in</Button>
+                        <Button type="submit" >
+                            Sign In       
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                variant="light"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                        </Button>
                     </div>
                 </Col>
             </Row>
