@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Form, Row, Col, Button, Alert, Spinner } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => {
+const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect, isLoading, setIsLoading }) => {
     const [formData, setFormData] = useState({ ...initialValues });
     const [validated, setValidated] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -16,6 +17,7 @@ const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => 
             setValidated(true);
         } else {
             onSubmit(formData);
+            setIsLoading(true);
         }
     };
 
@@ -48,8 +50,8 @@ const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => 
             <Row className="mb-3">
                 <Col md={{ span: 3, offset: 4 }}>
                     <div className="d-grid gap-2">
-                        <Button type="submit" >
-                            Sign In       
+                        <Button type="submit" disabled={isLoading}>
+                            Sign In
                             <Spinner
                                 as="span"
                                 animation="border"
@@ -57,6 +59,7 @@ const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => 
                                 size="sm"
                                 role="status"
                                 aria-hidden="true"
+                                hidden={!isLoading}
                                 style={{ marginLeft: "5%" }}
                             />
                         </Button>

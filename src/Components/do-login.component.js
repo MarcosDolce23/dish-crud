@@ -12,6 +12,7 @@ const DoLogin = () => {
     const [subTitle, setSubTitle] = useState('');
     const [text, setText] = useState('');
     const [userCorrect, setUserCorrect] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -31,13 +32,15 @@ const DoLogin = () => {
                     else
                         setUserCorrect(false);
                 } else
-                    Promise.reject()
+                    Promise.reject();
+                setIsLoading(false);
             })
             .catch(err => {
                 setTitle('Error!');
                 setSubTitle('Something went wrong');
                 setText('Error: ' + err);
                 setModalShow(true);
+                setIsLoading(false);
             })
     }
 
@@ -48,6 +51,8 @@ const DoLogin = () => {
                 onSubmit={doLogin}
                 userCorrect={userCorrect}
                 setUserCorrect={setUserCorrect}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
             >
                 Login Form
             </LoginForm>
