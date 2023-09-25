@@ -57,6 +57,7 @@ const LoginForm = ({ initialValues, onSubmit, userCorrect, setUserCorrect }) => 
                                 size="sm"
                                 role="status"
                                 aria-hidden="true"
+                                style={{ marginLeft: "5%" }}
                             />
                         </Button>
                     </div>
