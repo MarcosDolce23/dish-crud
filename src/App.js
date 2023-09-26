@@ -54,7 +54,7 @@ const App = () => {
               </Navbar.Brand>
 
               {location.pathname === "/" ? (
-               <h6 className="justify-content-end" style={{ color: "white" }}>V1.0.0</h6> 
+               <h6 className="justify-content-end" style={{ color: "white" }}>V1.1.0</h6> 
               ) : (
                 <Nav className="justify-content-end">
 
