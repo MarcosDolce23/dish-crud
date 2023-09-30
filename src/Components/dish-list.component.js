@@ -3,12 +3,14 @@ import Axios from "axios";
 import { Table, Row, Col, Spinner, Button } from "react-bootstrap";
 import DishTableRow from "./DishTableRow";
 import Utilities from "./Common/Utilities";
+import SearchBar from "./Common/SearchBar";
 import env from "react-dotenv";
 
 const DishList = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [dishes, setDishes] = useState([]);
+    const [filterText, setFilterText] = useState('');
 
     useEffect(() => {
         Axios({
@@ -54,6 +56,9 @@ const DishList = () => {
                         </div>
                     </Col>
                 </Row>
+                <SearchBar
+                    filterText={filterText}
+                    onFilterTextChange={setFilterText} />
                 <Table responsive striped bordered hover>
                     <thead>
                         <tr>
