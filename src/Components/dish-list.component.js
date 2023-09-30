@@ -6,6 +6,21 @@ import Utilities from "./Common/Utilities";
 import SearchBar from "./Common/SearchBar";
 import env from "react-dotenv";
 
+function DataTable({ dishes, filterText }) {
+    const rows = [];
+
+    dishes.forEach((res, i) => {
+        if (
+            res.esName.toLowerCase().indexOf(filterText.toLowerCase()) === -1 || res.enName.toLowerCase().indexOf(filterText.toLowerCase()) === -1
+        ) {
+            return;
+        }
+        rows.push(<DishTableRow obj={res} key={i} />)
+    });
+
+    return rows;
+}
+
 const DishList = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -27,12 +42,6 @@ const DishList = () => {
             });
     }, []);
 
-    const DataTable = () => {
-        return dishes.map((res, i) => {
-            return <DishTableRow obj={res} key={i} />;
-        });
-    };
-
     if (error) {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
@@ -46,7 +55,7 @@ const DishList = () => {
     } else {
         return (
             <>
-                <Row mb="3">
+                <Row className="mb-3">
                     <Col md="11">
                         <h1>Dishes List</h1>
                     </Col>
@@ -71,7 +80,12 @@ const DishList = () => {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>{DataTable()}</tbody>
+                    <tbody>
+                        <DataTable
+                            filterText={filterText}
+                            dishes={dishes}
+                        />
+                    </tbody>
                 </Table>
             </>
         );

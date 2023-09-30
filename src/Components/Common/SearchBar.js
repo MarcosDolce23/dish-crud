@@ -1,10 +1,10 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, FormControl, Row } from "react-bootstrap";
 
 function SearchBar({ filterText, onFilterTextChange }) {
     return (
-        <Row>
+        <Row className="mb-3">
             <Col md="3">
-                <input
+                <FormControl
                     type="text"
                     value={filterText}
                     placeholder="Filter by name"
