@@ -11,7 +11,7 @@ function DataTable({ dishes, filterText }) {
 
     dishes.forEach((res, i) => {
         if (
-            res.esName.toLowerCase().indexOf(filterText.toLowerCase()) === -1 || res.enName.toLowerCase().indexOf(filterText.toLowerCase()) === -1
+            res.esName.toLowerCase().indexOf(filterText.toLowerCase()) === -1 && res.enName.toLowerCase().indexOf(filterText.toLowerCase()) === -1
         ) {
             return;
         }
