@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Table, Spinner } from "react-bootstrap";
+import { Table, Row, Col, Spinner, Button } from "react-bootstrap";
 import DishTableRow from "./DishTableRow";
+import Utilities from "./Common/Utilities";
 import env from "react-dotenv";
 
 const DishList = () => {
@@ -43,7 +44,16 @@ const DishList = () => {
     } else {
         return (
             <>
-                <h1>Dishes List</h1>
+                <Row mb="3">
+                    <Col md="11">
+                        <h1>Dishes List</h1>
+                    </Col>
+                    <Col md="1">
+                        <div className="d-grid gap-2">
+                            <Button variant="secondary" size="sm" onClick={() => Utilities.downloadJson(dishes, "dishes.json")}>Export</Button >
+                        </div>
+                    </Col>
+                </Row>
                 <Table responsive striped bordered hover>
                     <thead>
                         <tr>
