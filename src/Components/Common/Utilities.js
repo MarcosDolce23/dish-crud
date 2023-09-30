@@ -43,6 +43,11 @@ export default class Utilities {
     static downloadImage(src, name) {
         let file = Utilities.convertBase64ToFile(src, name);
         saveAs(file, name);
+    };
+
+    static downloadJson(json, name) {
+        let file = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
+        saveAs(file, name);
     }
 }
     

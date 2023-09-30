@@ -17,10 +17,10 @@ const CategoryIngredientsDropdown = ({ ingredients, ingredient, updateIngredient
     return (
         <Row className="mb-3">
             <Form.Group as={Col} xs="4" md="3">
-                <Form.Control required as="select" value={ingredient._id} onChange={(e) => handleIngredientSelect(e)}>
+                <Form.Select required value={ingredient._id} onChange={(e) => handleIngredientSelect(e)}>
                     <option value="">Select an ingredient</option>
                     {ingredientList}
-                </Form.Control>
+                </Form.Select>
             </Form.Group>
             <Form.Group as={Col} xs="4" md="3">
                 <CloseButton onClick={() => removeIngredient(ingredient)} />

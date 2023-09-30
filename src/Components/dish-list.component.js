@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Table, Spinner } from "react-bootstrap";
+import { Table, Row, Col, Spinner, Button } from "react-bootstrap";
 import DishTableRow from "./DishTableRow";
+import Utilities from "./Common/Utilities";
+import SearchBar from "./Common/SearchBar";
 import env from "react-dotenv";
+
+function DataTable({ dishes, filterText }) {
+    const rows = [];
+
+    dishes.forEach((res, i) => {
+        if (
+            res.esName.toLowerCase().indexOf(filterText.toLowerCase()) === -1 && res.enName.toLowerCase().indexOf(filterText.toLowerCase()) === -1
+        ) {
+            return;
+        }
+        rows.push(<DishTableRow obj={res} key={i} />)
+    });
+
+    return rows;
+}
 
 const DishList = () => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [dishes, setDishes] = useState([]);
+    const [filterText, setFilterText] = useState('');
 
     useEffect(() => {
         Axios({
@@ -24,12 +42,6 @@ const DishList = () => {
             });
     }, []);
 
-    const DataTable = () => {
-        return dishes.map((res, i) => {
-            return <DishTableRow obj={res} key={i} />;
-        });
-    };
-
     if (error) {
         return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
@@ -43,7 +55,19 @@ const DishList = () => {
     } else {
         return (
             <>
-                <h1>Dishes List</h1>
+                <Row className="mb-3">
+                    <Col md="11">
+                        <h1>Dishes List</h1>
+                    </Col>
+                    <Col md="1">
+                        <div className="d-grid gap-2">
+                            <Button variant="secondary" size="sm" onClick={() => Utilities.downloadJson(dishes, "dishes.json")}>Export</Button >
+                        </div>
+                    </Col>
+                </Row>
+                <SearchBar
+                    filterText={filterText}
+                    onFilterTextChange={setFilterText} />
                 <Table responsive striped bordered hover>
                     <thead>
                         <tr>
@@ -56,7 +80,12 @@ const DishList = () => {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>{DataTable()}</tbody>
+                    <tbody>
+                        <DataTable
+                            filterText={filterText}
+                            dishes={dishes}
+                        />
+                    </tbody>
                 </Table>
             </>
         );
