@@ -2,7 +2,8 @@ import { saveAs } from "file-saver";
 
 export default class Utilities {
     static getRandomInt() {
-        return Math.floor(Math.random() * (2000 - 1000) + 1000);
+        const array = new Int8Array(1);
+        return window.crypto.getRandomValues(array)[0];
     }
     
     static convertBase64(file) {
