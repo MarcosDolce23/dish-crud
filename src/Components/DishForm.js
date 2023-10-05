@@ -267,7 +267,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                 </Row>
                 <Form.Label>Header image</Form.Label>
                 <Row className="mb-3">
-                    <Form.Group as={Col} md="4" controlId="validationCustom11">
+                    <Form.Group as={Col} md="4" controlId="validationCustom12">
                         <Form.Control
                             type="file"
                             onChange={e => handleHeaderImage(e)}
