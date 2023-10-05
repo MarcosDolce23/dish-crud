@@ -19,6 +19,8 @@ const CreateDish = () => {
         cookTime: '',
         vegan: false,
         ingredients: [],
+        esQuantities: [],
+        enQuantities: [],
         esRecipe: [],
         enRecipe: [],
         image: '',
