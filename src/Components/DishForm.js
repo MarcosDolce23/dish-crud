@@ -188,6 +188,30 @@ const DishForm = ({ initialValues, onSubmit }) => {
                 </Row>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="8" controlId="validationCustom07">
+                        <Form.Label>ES Quantities</Form.Label>
+                        <Form.Control
+                            required
+                            as="textarea"
+                            placeholder="ES Quantities"
+                            value={formData.esQuantities.join('\n')}
+                            onChange={e => setFormData({ ...formData, esQuantities: e.target.value.split(/\r\n|\r|\n/g) })}
+                        />
+                    </Form.Group>
+                </Row>
+                <Row className="mb-3">
+                    <Form.Group as={Col} md="8" controlId="validationCustom08">
+                        <Form.Label>EN Quantites</Form.Label>
+                        <Form.Control
+                            required
+                            as="textarea"
+                            placeholder="EN Quantities"
+                            value={formData.enQuantities.join('\n')}
+                            onChange={e => setFormData({ ...formData, enQuantities: e.target.value.split(/\r\n|\r|\n/g) })}
+                        />
+                    </Form.Group>
+                </Row>
+                <Row className="mb-3">
+                    <Form.Group as={Col} md="8" controlId="validationCustom09">
                         <Form.Label>ES Recipe</Form.Label>
                         <Form.Control
                             required
@@ -199,7 +223,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
-                    <Form.Group as={Col} md="8" controlId="validationCustom08">
+                    <Form.Group as={Col} md="8" controlId="validationCustom10">
                         <Form.Label>EN Recipe</Form.Label>
                         <Form.Control
                             required
@@ -212,7 +236,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                 </Row>
                 <Row className="mb-3">
                     <Form.Label>Image</Form.Label>
-                    <Form.Group as={Col} md="4" controlId="validationCustom09">
+                    <Form.Group as={Col} md="4" controlId="validationCustom11">
                         <Form.Control
                             type="file"
                             onChange={e => handleImage(e)}
@@ -243,7 +267,7 @@ const DishForm = ({ initialValues, onSubmit }) => {
                 </Row>
                 <Form.Label>Header image</Form.Label>
                 <Row className="mb-3">
-                    <Form.Group as={Col} md="4" controlId="validationCustom10">
+                    <Form.Group as={Col} md="4" controlId="validationCustom12">
                         <Form.Control
                             type="file"
                             onChange={e => handleHeaderImage(e)}
